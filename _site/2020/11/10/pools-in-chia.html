@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Pools in Chia</title>
+  <meta name="description"
+    content="Update: Check the Pooling FAQ for more updates.">
+
+  <!-- jQuery and Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/main.css?version=1">
+  <link rel="canonical" href="http://localhost:4000/2020/11/10/pools-in-chia.html">
+  <link rel="alternate" type="application/rss+xml" title="Chia Network"
+    href="http://localhost:4000/feed.xml">
+
+  
+  <meta name="twitter:image" content="https://chia.net/android-chrome-384x384.png" />
+  
+  <meta name="twitter:title" content="Pools in Chia">
+  
+  <meta name="twitter:description" content="Update: Check the Pooling FAQ for more updates.">
+  <!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Pools in Chia | Chia Network</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Pools in Chia" />
+<meta name="author" content="[Bram Cohen](https://twitter.com/bramcohen)" />
+<meta property="og:locale" content="en" />
+<meta name="description" content="Update: Check the Pooling FAQ for more updates." />
+<meta property="og:description" content="Update: Check the Pooling FAQ for more updates." />
+<link rel="canonical" href="http://localhost:4000/2020/11/10/pools-in-chia.html" />
+<meta property="og:url" content="http://localhost:4000/2020/11/10/pools-in-chia.html" />
+<meta property="og:site_name" content="Chia Network" />
+<meta property="og:image" content="https://chia.net/android-chrome-384x384.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-11-10T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:image" content="https://chia.net/android-chrome-384x384.png" />
+<meta property="twitter:title" content="Pools in Chia" />
+<meta name="twitter:site" content="@chia_project" />
+<meta name="twitter:creator" content="@[Bram Cohen](https://twitter.com/bramcohen)" />
+<meta property="article:publisher" content="https://www.facebook.com/ChiaProject" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","dateModified":"2020-11-10T00:00:00+08:00","datePublished":"2020-11-10T00:00:00+08:00","image":"https://chia.net/android-chrome-384x384.png","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2020/11/10/pools-in-chia.html"},"url":"http://localhost:4000/2020/11/10/pools-in-chia.html","author":{"@type":"Person","name":"[Bram Cohen](https://twitter.com/bramcohen)"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/img/chia_logo.svg"},"name":"[Bram Cohen](https://twitter.com/bramcohen)"},"headline":"Pools in Chia","description":"Update: Check the Pooling FAQ for more updates.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-157739092-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-157739092-1');
+</script>
+  
+</head>
+
+  <body>
+    
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand ml-xl-5 p-2" href="/"><img src="/img/chia_logo.svg" alt="Chia Logo"></a>
+    <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/download">Download</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/blog">Blog</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/news">News</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/faq">FAQ</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/greenpaper">Green Paper</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/about">About</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/careers">Careers</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/contact">Contact</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+        </ul>
+
+        <div class="nav-divider px-2 px-xl-5"><div></div></div>
+
+        
+        
+        <div class="dropdown d-none d-lg-block pr-xl-3">
+            
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="languageMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">English</a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="languageMenuLink">
+                <a class="dropdown-item" href="/2020/11/10/pools-in-chia.html">English</a><a class="dropdown-item" href="/fr/2020/11/10/pools-in-chia.html">Français</a><a class="dropdown-item" href="/jp/2020/11/10/pools-in-chia.html">日本語</a><a class="dropdown-item" href="/cn/2020/11/10/pools-in-chia.html">中文</a><a class="dropdown-item" href="/nl/2020/11/10/pools-in-chia.html">Nederlands</a><a class="dropdown-item" href="/de/2020/11/10/pools-in-chia.html">Deutsch</a><a class="dropdown-item" href="/es/2020/11/10/pools-in-chia.html">Español</a><a class="dropdown-item" href="/sr/2020/11/10/pools-in-chia.html">Srpski</a><a class="dropdown-item" href="/pt/2020/11/10/pools-in-chia.html">Português</a><a class="dropdown-item" href="/tr/2020/11/10/pools-in-chia.html">Türk</a><a class="dropdown-item" href="/ru/2020/11/10/pools-in-chia.html">Русский</a>
+            </div>
+        </div>
+        <div class="dropup d-lg-none py-3">
+            
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="languageMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">English</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="languageMenuLink">
+                <a class="dropdown-item" href="/2020/11/10/pools-in-chia.html">English</a><a class="dropdown-item" href="/fr/2020/11/10/pools-in-chia.html">Français</a><a class="dropdown-item" href="/jp/2020/11/10/pools-in-chia.html">日本語</a><a class="dropdown-item" href="/cn/2020/11/10/pools-in-chia.html">中文</a><a class="dropdown-item" href="/nl/2020/11/10/pools-in-chia.html">Nederlands</a><a class="dropdown-item" href="/de/2020/11/10/pools-in-chia.html">Deutsch</a><a class="dropdown-item" href="/es/2020/11/10/pools-in-chia.html">Español</a><a class="dropdown-item" href="/sr/2020/11/10/pools-in-chia.html">Srpski</a><a class="dropdown-item" href="/pt/2020/11/10/pools-in-chia.html">Português</a><a class="dropdown-item" href="/tr/2020/11/10/pools-in-chia.html">Türk</a><a class="dropdown-item" href="/ru/2020/11/10/pools-in-chia.html">Русский</a>
+            </div>
+        </div>
+    </div>   
+</nav>
+
+
+
+<div class="blog-post">
+  <article class="container" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="row">
+      <div class="col-md-10 mx-auto">
+        <div class="title">
+          <h1>Pools in Chia</h1>
+          <span class="author"><p><a href="https://twitter.com/bramcohen">Bram Cohen</a></p>
+</span> &mdash; <span class="date">November 10, 2020</span>
+        </div>
+
+        <div class="content">
+          <p><em>Update</em>: Check the <a href="https://github.com/Chia-Network/chia-blockchain/wiki/Pooling-FAQ">Pooling FAQ</a> for more updates.</p>
+
+<p>As the launch of Chia’s mainnet approaches I want to go over the current status of farmer pools in Chia and what the plans for pooling are in the future.</p>
+
+<p><strong>TL;DR</strong> We don’t have pooling fully implemented yet but are building in hooks to make two approaches to farmer pools work well in the future.</p>
+
+<p>We’re approaching pooling support in Chia with caution because they’re a large potential source of centralization in a system which we’re designing to be as decentralized as possible. That said, there are some real benefits to pools: They smooth out farming rewards, especially for small farmers, and they can ensure that good timelord infrastructure is being run. Even so, we recommend that farmers self-pool and have taken steps to make self-pooling as painless as possible. Additionally, in our new <a href="/assets/Chia-New-Consensus-0.9.pdf">consensus algorithm</a> there are 32 times as many reward events per day as there are in Bitcoin. With 4608 chances to win 2 chia each day, we think that even small farmers with self pools will be able to win rewards over reasonable time frames in the early months of mainnet. (Updated February 2021 to modify that it will be 4608 chances to win 2 chia each day.)</p>
+
+<p>That said, it does make sense to use pools in some circumstances so we’re building in hooks for them with certain intended protocols in mind. First and foremost, even when a winning farmer is using a pool, they themselves are the ones who make the transaction block - not the pool. The decentralization benefits of this policy are obvious. To maximize the attractiveness and stability of this method, all the transaction fees generated by a block go to the farmer who found it and not to the pool.</p>
+
+<p>Trying to split the transaction fees with the pool could result in transaction fees being paid ‘under the table’ either by making them go directly to the farmer or making an anyone can spend output which the farmer would then pay to themselves. Circumventing the pool would take up space on the blockchain. It could also encourage the emergence of alternative pooling protocols where the pool makes the transaction block which is a form of centralization we wish to avoid. This method has the downside of reducing the smoothing benefits of pools if transaction fees come to dominate fixed block rewards. That’s never been a major issue in Bitcoin and our block reward schedule is set to only halve three times and continue at a fixed amount forever after. There will alway be block rewards to pay to the pool while transaction fees go to the individual farmers.</p>
+
+<p>Possibly the most debatable part of our planned pooling protocol is that fixed block rewards are set to go 7/8 to the pool and 1/8 to the farmer. This seems to be a sweet spot where it doesn’t reduce smoothing all that much but also wipes out potential selfish mining attacks where someone joins a competing pool and takes their partials but doesn’t upload actual blocks when they find them. Those sort of attacks can become profitable when the fraction of the split is smaller than the size of the pool relative to the whole system. We have the option to change this split before mainnet launch and are open to <a href="https://keybase.io/team/chia_network.public">feedback and opinions</a> about it - which I’m sure people will have. Please be polite.</p>
+
+<p>When farmers make the blocks there is an auditing problem for pools. The pools need to be able to ensure that a farmer doesn’t claim partials from multiple pools or steal whole block rewards when they find them. The simplest way to do this is to have separate pool keys in plot files which sign where the rewards go. This was the first thing we built in the interests of being able to guarantee that current plot files would work on mainnet as early as possible.</p>
+
+<p>This approach allows anyone to join a pool without having prior interaction with either the pool or the blockchain. The downside of this approach is that once you start using a pool you can’t switch without redoing your plots. Our testnet farming community has explained that it’s highly desirable to also have a pooling protocol which allows for switching pools without having to redo plots. I’ve come up with a plan for how to support that.</p>
+
+<p>The new hook for supporting pool switching is an alternative plot format which contains a puzzle hash. A puzzle hash determines how a coin can be spent. It’s the Chia equivalent of what’s called a <a href="https://www.mycryptopedia.com/scriptpubkey-scriptsig/">scriptpubkey</a> in Bitcoin. Pool block rewards are sent to that puzzle instead of there being a pool public key which signs where each reward goes. You might be wondering what this has to do with pool switching. A common theme with Chialisp, our on-chain programming environment, is that the tools look insufficient for doing what you want but are actually capable of doing it in a much more robust and versatile way than more specialized tools could. The next paragraph explains this, but is a bit technical, so feel free to skip.</p>
+
+<p>In order to support pool switching there needs to be some kind of on chain state which determines where a given farmer’s rewards are going which is both auditable by the pool and changeable by the farmer. We have a policy that the only <a href="https://medium.com/@moonxfamily/what-is-utxo-model-how-can-blockchain-address-them-acd4856b8c56">on chain state</a> is the current coin set. Using the combined tricks of backwards pointing covenants as capabilities and hiding state in puzzle hashes we can implement <a href="https://en.wikipedia.org/wiki/Singleton_pattern">singletons</a>. A given farmer’s singleton needs to have a puzzle which follows a standard template so that the pool can verify that it’s there and can use it to claim farming rewards. That singleton can also have functionality to change what pool it’s pointed at but there needs to be a grace period before the change takes effect during which the old pool can still use it to claim block rewards to keep the farmer from stealing.</p>
+
+<p>This sounds like a complicated bunch of different technologies but we’ve already built several smart transactions which use these primitives in much more sophisticated ways. This approach allows full flexibility for pools to set the parameters for when and how pool switching is done.</p>
+
+<p>The downside of this approach is that it requires posting transactions to the blockchain in order to start using a pool or to switch pools. This incurs transaction fees and is a privacy leak. Our original, and simpler approach also has extra privacy benefits if pool keys are aggregated between the pool and the farmer.</p>
+
+<p>Fleshing out the details of both pooling protocols is beyond the scope of this post and will require real work to complete. We’re planning on supporting both in the future but releasing mainnet is a higher priority right now so please be understanding of our choice to keep our resources focused on launch.</p>
+
+<p>It is always possible for an existing pool to start supporting new protocols and smooth out rewards across all of the protocols so there’s a clean upgrade path for them to support simpler protocols now and expand to more sophisticated protocols later.</p>
+
+<p>It’s impossible to be all things to all people. In this case we’ve made the decision to support pooling in ways which are consistent with how everything else in Chia is done and doesn’t cause ongoing difficulties for a single use case. The downside is that plots being made today won’t be able to switch pools in the future without replotting. For that we are sorry. But we promise that plots of k=32 or larger made today will work on mainnet and continue to do so well into the future.</p>
+
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+    
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between py-5">
+                    <div class="contact-details">
+                        <a href="https://github.com/Chia-Network" target="_blank" rel="noreferrer noopener"><img class="m-2" src="/img/social/github_light.svg" alt="GitHub Logo"></a>
+                        <a href="https://twitter.com/chia_project" target="_blank" rel="noreferrer noopener"><img class="m-2" src="/img/social/twitter_light.svg" alt="Twitter Logo"></a>
+                        <a href="https://www.facebook.com/ChiaProject" target="_blank" rel="noreferrer noopener"><img class="m-2" src="/img/social/facebook_light.svg" alt="Facebook Logo"></a>
+                        <a href="https://instagram.com/chia_project" target="_blank" rel="noreferrer noopener"><img class="m-2" src="/img/social/instagram_light.svg" alt="Instagram Logo"></a>
+                        <a href="https://medium.com/@chia.net" target="_blank" rel="noreferrer noopener"><img class="m-2" src="/img/social/medium_light.svg" alt="Medium Logo"></a>
+                    </div>
+                    <div style="text-align: right">
+                        <img class="logo" src="/img/chia_logo.svg" alt="chia_logo">
+                        <div class="copyright">© Chia Network 2021 | <a href="/terms">Terms</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+  </body>
+</html>

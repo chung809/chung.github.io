@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Introducing Chialisp</title>
+  <meta name="description"
+    content="We just launched our first version of the Chialisp language and on-chain programming environment, which introduces a new and much better approach to building...">
+
+  <!-- jQuery and Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/main.css?version=1">
+  <link rel="canonical" href="http://localhost:4000/2019/11/27/chialisp.en.html">
+  <link rel="alternate" type="application/rss+xml" title="Chia Network"
+    href="http://localhost:4000/feed.xml">
+
+  
+  <meta name="twitter:image" content="https://chia.net/android-chrome-384x384.png" />
+  
+  <meta name="twitter:title" content="Introducing Chialisp">
+  
+  <meta name="twitter:description" content="We just launched our first version of the Chialisp language and on-chain programming environment, which introduces a new and much better approach to building smart transactions. This post will give an overview of what the new innovations are and how they’re better.">
+  <!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Introducing Chialisp | Chia Network</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Introducing Chialisp" />
+<meta name="author" content="[Bram Cohen](https://twitter.com/bramcohen)" />
+<meta property="og:locale" content="en" />
+<meta name="description" content="We just launched our first version of the Chialisp language and on-chain programming environment, which introduces a new and much better approach to building smart transactions. This post will give an overview of what the new innovations are and how they’re better." />
+<meta property="og:description" content="We just launched our first version of the Chialisp language and on-chain programming environment, which introduces a new and much better approach to building smart transactions. This post will give an overview of what the new innovations are and how they’re better." />
+<link rel="canonical" href="http://localhost:4000/2019/11/27/chialisp.en.html" />
+<meta property="og:url" content="http://localhost:4000/2019/11/27/chialisp.en.html" />
+<meta property="og:site_name" content="Chia Network" />
+<meta property="og:image" content="https://chia.net/android-chrome-384x384.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-11-27T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:image" content="https://chia.net/android-chrome-384x384.png" />
+<meta property="twitter:title" content="Introducing Chialisp" />
+<meta name="twitter:site" content="@chia_project" />
+<meta name="twitter:creator" content="@[Bram Cohen](https://twitter.com/bramcohen)" />
+<meta property="article:publisher" content="https://www.facebook.com/ChiaProject" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","dateModified":"2019-11-27T00:00:00+08:00","datePublished":"2019-11-27T00:00:00+08:00","image":"https://chia.net/android-chrome-384x384.png","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2019/11/27/chialisp.en.html"},"url":"http://localhost:4000/2019/11/27/chialisp.en.html","author":{"@type":"Person","name":"[Bram Cohen](https://twitter.com/bramcohen)"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/img/chia_logo.svg"},"name":"[Bram Cohen](https://twitter.com/bramcohen)"},"headline":"Introducing Chialisp","description":"We just launched our first version of the Chialisp language and on-chain programming environment, which introduces a new and much better approach to building smart transactions. This post will give an overview of what the new innovations are and how they’re better.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-157739092-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-157739092-1');
+</script>
+  
+</head>
+
+  <body>
+    
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand ml-xl-5 p-2" href="/"><img src="/img/chia_logo.svg" alt="Chia Logo"></a>
+    <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/download">Download</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/blog">Blog</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/news">News</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/faq">FAQ</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/greenpaper">Green Paper</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/about">About</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/careers">Careers</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/contact">Contact</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+        </ul>
+
+        <div class="nav-divider px-2 px-xl-5"><div></div></div>
+
+        
+        
+        <div class="dropdown d-none d-lg-block pr-xl-3">
+            
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="languageMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">English</a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="languageMenuLink">
+                <a class="dropdown-item" href="/2019/11/27/chialisp.en.html">English</a><a class="dropdown-item" href="/fr/2019/11/27/chialisp.en.html">Français</a><a class="dropdown-item" href="/jp/2019/11/27/chialisp.en.html">日本語</a><a class="dropdown-item" href="/cn/2019/11/27/chialisp.en.html">中文</a><a class="dropdown-item" href="/nl/2019/11/27/chialisp.en.html">Nederlands</a><a class="dropdown-item" href="/de/2019/11/27/chialisp.en.html">Deutsch</a><a class="dropdown-item" href="/es/2019/11/27/chialisp.en.html">Español</a><a class="dropdown-item" href="/sr/2019/11/27/chialisp.en.html">Srpski</a><a class="dropdown-item" href="/pt/2019/11/27/chialisp.en.html">Português</a><a class="dropdown-item" href="/tr/2019/11/27/chialisp.en.html">Türk</a><a class="dropdown-item" href="/ru/2019/11/27/chialisp.en.html">Русский</a>
+            </div>
+        </div>
+        <div class="dropup d-lg-none py-3">
+            
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="languageMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">English</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="languageMenuLink">
+                <a class="dropdown-item" href="/2019/11/27/chialisp.en.html">English</a><a class="dropdown-item" href="/fr/2019/11/27/chialisp.en.html">Français</a><a class="dropdown-item" href="/jp/2019/11/27/chialisp.en.html">日本語</a><a class="dropdown-item" href="/cn/2019/11/27/chialisp.en.html">中文</a><a class="dropdown-item" href="/nl/2019/11/27/chialisp.en.html">Nederlands</a><a class="dropdown-item" href="/de/2019/11/27/chialisp.en.html">Deutsch</a><a class="dropdown-item" href="/es/2019/11/27/chialisp.en.html">Español</a><a class="dropdown-item" href="/sr/2019/11/27/chialisp.en.html">Srpski</a><a class="dropdown-item" href="/pt/2019/11/27/chialisp.en.html">Português</a><a class="dropdown-item" href="/tr/2019/11/27/chialisp.en.html">Türk</a><a class="dropdown-item" href="/ru/2019/11/27/chialisp.en.html">Русский</a>
+            </div>
+        </div>
+    </div>   
+</nav>
+
+
+
+<div class="blog-post">
+  <article class="container" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="row">
+      <div class="col-md-10 mx-auto">
+        <div class="title">
+          <h1>Introducing Chialisp</h1>
+          <span class="author"><p><a href="https://twitter.com/bramcohen">Bram Cohen</a></p>
+</span> &mdash; <span class="date">November 27, 2019</span>
+        </div>
+
+        <div class="content">
+          <p>We just launched our first version of the <a href="https://chialisp.com/">Chialisp</a> language and on-chain programming environment, which introduces a new and much better approach to building smart transactions. This post will give an overview of what the new innovations are and how they’re better.</p>
+
+<p>The two general approaches to smart transaction environments so far have been from Bitcoin and Ethereum, which I’ll be referring to as ‘the UTXO model’ and ‘the Solidity model’. In the UTXO model the only data which needs to be kept by servers is the current set of unspent coins (and their birthdates, but that’s a minor addition) and transactions only spend some coins and create others and are not allowed to depend on any external data so the only way for them to go from good to bad is for an input to be spend (or to be reorged into never existing or having a different birthdate, again a minor gotcha). The Solidity model by contrast has huge amounts of on-chain state including running programs and the effects of a transaction can’t always be determined before it actually runs. The UTXO approach is much simpler, easier to implement, has lower overhead on full nodes, and results in much more reliable, secure, and succinct smart transactions. The Solidity model is much more dangerous, expensive, and unreliable, but has more expressive power.</p>
+
+<p>What we’ve figured out with Chialisp (and the surrounding CLVM) is how to keep the UTXO model but add in the general power of Solidity. This is done with a set of simple cleanups which individually don’t do much but combined add up to something very powerful:</p>
+
+<ul>
+  <li>
+    <p>Coins are first class objects and transactions are ephemeral justifications of destroying some of them and creating others, unlike in Bitcoin where transactions are first class objects and coins (UTXOs) are represented as a transaction id and an output number.</p>
+  </li>
+  <li>
+    <p>The format of coins (UTXOs) is dramatically simplified. It’s just a primary input, puzzle hash, and amount.</p>
+  </li>
+  <li>
+    <p>Transactions happen simultaneously rather than sequentially.</p>
+  </li>
+  <li>
+    <p>Signatures are done using <a href="https://en.wikipedia.org/wiki/Boneh%E2%80%93Lynn%E2%80%93Shacham">BLS</a>, which is a non-interactively aggregatable format, and aggregation is always done.</p>
+  </li>
+  <li>
+    <p>The language used has no side effects. This allows delegation and partial delegation in a much more general and powerful way than is added by Bitcoins current taproot proposal.</p>
+  </li>
+  <li>
+    <p>The requirements of all puzzle (<a href="https://bitcoin.org/en/glossary/pubkey-script">scriptpubkey</a> in Bitcoin parlance) solutions (scriptsigs) are expressed by their return value.</p>
+  </li>
+  <li>
+    <p>The language is turing complete. This adds a lot less complexity than people make it out to because execution is ephemeral. It’s the complex persistent state which causes complexity in Solidity.</p>
+  </li>
+  <li>
+    <p>The language has the necessary primitives to calculate coin ids and coins are able to assert their own ids, which allows explicit self-reference and avoids the need for <a href="https://en.wikipedia.org/wiki/Quine_(computing)">quines</a>.</p>
+  </li>
+</ul>
+
+<p>In addition to the language and environment extensions there are also some programmatic tricks which allow much more functionality than you’d expect:</p>
+
+<ul>
+  <li>
+    <p>Covenants can be implemented by making statements about the puzzle hashes of outputs which apply recursively. It’s been pointed out that this could in principle be done in Bitcoin Script but it lacks sufficient string mangling capabilities and ‘check signature from stack’, which was the inspiration for using it here.</p>
+  </li>
+  <li>
+    <p>Capabilities can be implemented using backwards pointing covenants which talk about ancestors rather than descendants.</p>
+  </li>
+  <li>
+    <p>Coins can communicate with each other using ephemeral coins which are consumed in the same transaction they’re created and are declared as inputs by the receiving coin.</p>
+  </li>
+  <li>
+    <p>State can be kept in unreachable parts of the code in the puzzle, which can then be accessed by getting a reveal in a solution and asserting the coin id which is calculated based on the puzzle hash.</p>
+  </li>
+</ul>
+
+<p>Together these techniques allow for arbitrarily complex functionality without requiring any new opcodes. New functionality can simply be written and deployed.</p>
+
+<p>As a taste of what can be done with this we’re making available several reference smart transactions and the wallets which use them, including:</p>
+
+<ul>
+  <li>
+    <p>A wallet which can only send its funds to authorized recipients.</p>
+  </li>
+  <li>
+    <p>A wallet which can only spend money at a set rate, including being able to send payments to it non-interactively. This turns out to require a capability or the wallet software could make multiple funds-holding coins and spend from all of them at once.</p>
+  </li>
+  <li>
+    <p>A wallet with deposit recovery information like a paper wallet but with a lower attack surface. It can be used to recover the funds in a wallet whose secure hardware has failed but unlike a usual paper wallet, instead of summarily gaining control of the coins the deposit recovery information can be used to initiate a process for gaining control which takes some time during which the hardware wallet (if it’s still online) can claw the funds back. It can also support requiring a deposit to start the recovery process that the person being attacked can “steal.”</p>
+  </li>
+</ul>
+
+<p>We’ve also made implementations of some basic functionality which already exists in Bitcoin but is important:</p>
+
+<ul>
+  <li>
+    <p>Multisig. We’re starting with the simplest approach which is the same as in Bitcoin and will be implementing the alternative approaches which make good use of signature aggregation in the future.</p>
+  </li>
+  <li>
+    <p>Atomic swaps. We have a smart wallet which does the swap and handles all the edge cases on chain.</p>
+  </li>
+</ul>
+
+<p>In the future we’ll build more reference smart transactions, and the Chialisp functionality will be added to our testnet followed by our mainnet. There will be incompatible changes before final mainnet launch, but the fundamental concepts won’t change. We have some additional exciting reference transactions to add to this list over the coming months including light client verifiable colored coins that inherit full Chialisp functionality and distributed identity wallets with sophisticated recovery options.</p>
+
+<p>Documentation is available online <a href="https://chialisp.com/">Github repo</a>.</p>
+
+<p>Questions about installation, LedgerSim, smart wallets and our smart transactions should be addressed to our <a href="https://keybase.io/team/chia_network.public">keybase channel</a> #dev.</p>
+
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+    
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between py-5">
+                    <div class="contact-details">
+                        <a href="https://github.com/Chia-Network" target="_blank" rel="noreferrer noopener"><img class="m-2" src="/img/social/github_light.svg" alt="GitHub Logo"></a>
+                        <a href="https://twitter.com/chia_project" target="_blank" rel="noreferrer noopener"><img class="m-2" src="/img/social/twitter_light.svg" alt="Twitter Logo"></a>
+                        <a href="https://www.facebook.com/ChiaProject" target="_blank" rel="noreferrer noopener"><img class="m-2" src="/img/social/facebook_light.svg" alt="Facebook Logo"></a>
+                        <a href="https://instagram.com/chia_project" target="_blank" rel="noreferrer noopener"><img class="m-2" src="/img/social/instagram_light.svg" alt="Instagram Logo"></a>
+                        <a href="https://medium.com/@chia.net" target="_blank" rel="noreferrer noopener"><img class="m-2" src="/img/social/medium_light.svg" alt="Medium Logo"></a>
+                    </div>
+                    <div style="text-align: right">
+                        <img class="logo" src="/img/chia_logo.svg" alt="chia_logo">
+                        <div class="copyright">© Chia Network 2021 | <a href="/terms">Terms</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+  </body>
+</html>

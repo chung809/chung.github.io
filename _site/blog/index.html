@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Blog - Chia Network</title>
+  <meta name="description"
+    content="A better blockchain and smart transaction platform which is more decentralized, more efficient, and more secure.
+">
+
+  <!-- jQuery and Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/main.css?version=1">
+  <link rel="canonical" href="http://localhost:4000/blog/">
+  <link rel="alternate" type="application/rss+xml" title="Chia Network"
+    href="http://localhost:4000/feed.xml">
+
+  
+  <meta name="twitter:image" content="https://chia.net/android-chrome-384x384.png" />
+  
+  <meta name="twitter:title" content="Blog - Chia Network">
+  
+  <!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Blog - Chia Network | Chia Network</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Blog - Chia Network" />
+<meta property="og:locale" content="en" />
+<meta name="description" content="A better blockchain and smart transaction platform which is more decentralized, more efficient, and more secure." />
+<meta property="og:description" content="A better blockchain and smart transaction platform which is more decentralized, more efficient, and more secure." />
+<link rel="canonical" href="http://localhost:4000/blog/" />
+<meta property="og:url" content="http://localhost:4000/blog/" />
+<meta property="og:site_name" content="Chia Network" />
+<meta property="og:image" content="https://chia.net/android-chrome-384x384.png" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:image" content="https://chia.net/android-chrome-384x384.png" />
+<meta property="twitter:title" content="Blog - Chia Network" />
+<meta name="twitter:site" content="@chia_project" />
+<meta property="article:publisher" content="https://www.facebook.com/ChiaProject" />
+<script type="application/ld+json">
+{"@type":"WebPage","image":"https://chia.net/android-chrome-384x384.png","url":"http://localhost:4000/blog/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/img/chia_logo.svg"}},"headline":"Blog - Chia Network","description":"A better blockchain and smart transaction platform which is more decentralized, more efficient, and more secure.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-157739092-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-157739092-1');
+</script>
+  
+</head>
+
+  <body>
+    
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand ml-xl-5 p-2" href="/"><img src="/img/chia_logo.svg" alt="Chia Logo"></a>
+    <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/download">Download</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/blog">Blog</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/news">News</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/faq">FAQ</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/greenpaper">Green Paper</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/about">About</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/careers">Careers</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/contact">Contact</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+        </ul>
+
+        <div class="nav-divider px-2 px-xl-5"><div></div></div>
+
+        
+        
+        <div class="dropdown d-none d-lg-block pr-xl-3">
+            
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="languageMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">English</a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="languageMenuLink">
+                <a class="dropdown-item" href="/blog/">English</a><a class="dropdown-item" href="/fr/blog/">Français</a><a class="dropdown-item" href="/jp/blog/">日本語</a><a class="dropdown-item" href="/cn/blog/">中文</a><a class="dropdown-item" href="/nl/blog/">Nederlands</a><a class="dropdown-item" href="/de/blog/">Deutsch</a><a class="dropdown-item" href="/es/blog/">Español</a><a class="dropdown-item" href="/sr/blog/">Srpski</a><a class="dropdown-item" href="/pt/blog/">Português</a><a class="dropdown-item" href="/tr/blog/">Türk</a><a class="dropdown-item" href="/ru/blog/">Русский</a>
+            </div>
+        </div>
+        <div class="dropup d-lg-none py-3">
+            
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="languageMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">English</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="languageMenuLink">
+                <a class="dropdown-item" href="/blog/">English</a><a class="dropdown-item" href="/fr/blog/">Français</a><a class="dropdown-item" href="/jp/blog/">日本語</a><a class="dropdown-item" href="/cn/blog/">中文</a><a class="dropdown-item" href="/nl/blog/">Nederlands</a><a class="dropdown-item" href="/de/blog/">Deutsch</a><a class="dropdown-item" href="/es/blog/">Español</a><a class="dropdown-item" href="/sr/blog/">Srpski</a><a class="dropdown-item" href="/pt/blog/">Português</a><a class="dropdown-item" href="/tr/blog/">Türk</a><a class="dropdown-item" href="/ru/blog/">Русский</a>
+            </div>
+        </div>
+    </div>   
+</nav>
+
+
+
+<div class="blog-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="page-main-title mt-5 mb-4">Notes from Chia</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                
+                    
+                    <div class="post d-flex first-of-year">
+                        <div class="year">2021</div>
+                        <a href="/2021/07/13/a-vision-for-defi-in-chia.en.html" class="content">
+                            <div class="date">July 13</div>
+                            <div class="headline">A Vision for DeFi in Chia</div>
+                            <div class="preview">In addition to a new consensus algorithm, with Chia we’ve also built a new on-chain programming environment called Chialisp which is just...</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex">
+                        <div class="year"></div>
+                        <a href="/2021/07/09/how-to-pick-a-chia-pool.en.html" class="content">
+                            <div class="date">July 9</div>
+                            <div class="headline">How to Pick a Chia Pool</div>
+                            <div class="preview">Knowing how to find a safe, secure, and trustworthy pool is important. There are many pools bidding for your plots, and it is your respon...</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex">
+                        <div class="year"></div>
+                        <a href="/2021/07/07/official-pooling-launched.en.html" class="content">
+                            <div class="date">July 7</div>
+                            <div class="headline">Official Pooling Protocol Launched</div>
+                            <div class="preview">TL;DR: The new plot format has arrived. Upgrade to version 1.2.0 of the Chia Blockchain software to start plotting for pools now and be s...</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex">
+                        <div class="year"></div>
+                        <a href="/2021/06/30/pooling-protocol-phase-2.html" class="content">
+                            <div class="date">June 30</div>
+                            <div class="headline">Pooling Protocol Testing Entering Phase 2</div>
+                            <div class="preview">Today we are entering the second phase of our testing and roll out of the official pooling protocol. This phase is for pooling operators ...</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex">
+                        <div class="year"></div>
+                        <a href="/2021/06/15/common-misconceptions-vol-1.html" class="content">
+                            <div class="date">June 15</div>
+                            <div class="headline">Common Misconceptions, Vol. 1</div>
+                            <div class="preview">Chia is a complex system. There is a lot of nuance and technicalities involved in understanding how all the components of Chia work toget...</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex">
+                        <div class="year"></div>
+                        <a href="/2021/06/13/AMA-plotting-speed-and-security-in-chia.html" class="content">
+                            <div class="date">June 13</div>
+                            <div class="headline">AMA - Plotting speed and security in Chia</div>
+                            <div class="preview">With the release of the MadMax plotter there has been a lot of confusion about what improved plotting speeds mean to the security of the ...</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex">
+                        <div class="year"></div>
+                        <a href="/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html" class="content">
+                            <div class="date">May 28</div>
+                            <div class="headline">Securing Your Chia - How to Be a Hard Target</div>
+                            <div class="preview">Many people are coming into Chia that are brand new to crypto. Many are veterans in crypto but new to computer hardware. Farming and plot...</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex">
+                        <div class="year"></div>
+                        <a href="/2021/05/27/Agrgregated-Sigs-Taproot-Graftroot.html" class="content">
+                            <div class="date">May 27</div>
+                            <div class="headline">Aggregated signatures, Taproot, Graftroot, and standard transactions</div>
+                            <div class="preview">In Chia we’re using BLS signatures which enable noninteractive signature aggregation. In this post I’ll explain how that fits into the sy...</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex">
+                        <div class="year"></div>
+                        <a href="/2021/05/24/SSD-endurance.html" class="content">
+                            <div class="date">May 24</div>
+                            <div class="headline">Chia and SSD Endurance</div>
+                            <div class="preview">Overview of Chia plotting and farming</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex">
+                        <div class="year"></div>
+                        <a href="/2021/03/17/Chia-1.0.html" class="content">
+                            <div class="date">March 17</div>
+                            <div class="headline">Chia 1.0 Mainnet</div>
+                            <div class="preview">Today we release version 1.0 of the Chia Blockchain.</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex">
+                        <div class="year"></div>
+                        <a href="/2021/03/15/mainnet-update.html" class="content">
+                            <div class="date">March 15</div>
+                            <div class="headline">Chia Mainnet Update - March 15</div>
+                            <div class="preview">We want to give you an update on mainnet timing and our general plans around the launch.</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex">
+                        <div class="year"></div>
+                        <a href="/2021/03/04/farming-and-energy.html" class="content">
+                            <div class="date">March 4</div>
+                            <div class="headline">Farming and Electricity Usage in Chia</div>
+                            <div class="preview">Come join a cocktail hour panel Friday March 5 and learn about the most efficient way to farm large quantities of plotted storage and tal...</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex">
+                        <div class="year"></div>
+                        <a href="/2021/02/22/plotting-basics.html" class="content">
+                            <div class="date">February 22</div>
+                            <div class="headline">Chia plotting basics</div>
+                            <div class="preview">Introduction</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex">
+                        <div class="year"></div>
+                        <a href="/2021/02/16/plotting-experts.html" class="content">
+                            <div class="date">February 16</div>
+                            <div class="headline">Meet the plotting experts</div>
+                            <div class="preview">Come join a cocktail hour panel with Chia whales^H^H^H^H^H^H experts in plotting.</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex">
+                        <div class="year"></div>
+                        <a href="/2021/02/10/chia-businesss-whitepaper.html" class="content">
+                            <div class="date">February 10</div>
+                            <div class="headline">The Chia Business Whitepaper</div>
+                            <div class="preview">Yesterday evening we released the first version of our Business Whitepaper. The goal of this document was to go into depth on the transfo...</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex first-of-year">
+                        <div class="year">2020</div>
+                        <a href="/2020/11/10/pools-in-chia.html" class="content">
+                            <div class="date">November 10</div>
+                            <div class="headline">Pools in Chia</div>
+                            <div class="preview">Update: Check the Pooling FAQ for more updates.</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex">
+                        <div class="year"></div>
+                        <a href="/2020/10/08/og-farming-contest.html" class="content">
+                            <div class="date">October 8</div>
+                            <div class="headline">OG Space Farming Contest</div>
+                            <div class="preview">A faster plotter and a k=32 plot size minimum mean it’s time for a new farming contest!</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex">
+                        <div class="year"></div>
+                        <a href="/2020/07/31/t-shirts-contest.en.html" class="content">
+                            <div class="date">July 31</div>
+                            <div class="headline">A T-shirt contest for Space Farmers</div>
+                            <div class="preview">Now that the finalized plot format is out in Beta 1.8 and Beta 1.9, it’s time for some fun.</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex">
+                        <div class="year"></div>
+                        <a href="/2020/04/29/coloured-coins-launch.en.html" class="content">
+                            <div class="date">April 29</div>
+                            <div class="headline">Launching Coloured Coins</div>
+                            <div class="preview">Blockchains should make issuing and using coins and assets easier and more trustworthy than in the analog world, but so far the functiona...</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex">
+                        <div class="year"></div>
+                        <a href="/2020/02/25/so-you-want-to-be-a-space-farmer.en.html" class="content">
+                            <div class="date">February 25</div>
+                            <div class="headline">So You Want to be a Space Farmer?</div>
+                            <div class="preview">With the release of Alpha 1.4 of the Chia blockchain there is no better time to become a farmer of Space and Time! The Chia testnet block...</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex first-of-year">
+                        <div class="year">2019</div>
+                        <a href="/2019/11/27/chialisp.en.html" class="content">
+                            <div class="date">November 27</div>
+                            <div class="headline">Introducing Chialisp</div>
+                            <div class="preview">We just launched our first version of the Chialisp language and on-chain programming environment, which introduces a new and much better ...</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex">
+                        <div class="year"></div>
+                        <a href="/2019/11/26/alpha-release.en.html" class="content">
+                            <div class="date">November 26</div>
+                            <div class="headline">Introducing The Alpha Release Of The Chia Blockchain</div>
+                            <div class="preview">The Chia blockchain and consensus algorithm aims to provide a more environmentally friendly, decentralized, and secure alternative to pro...</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex">
+                        <div class="year"></div>
+                        <a href="/2019/07/18/chia-vdf-competition-round-2-results-and-announcements.en.html" class="content">
+                            <div class="date">July 18</div>
+                            <div class="headline">Chia VDF Competition Round 2 Results and Announcements</div>
+                            <div class="preview">Congratulations to Sundersoft for winning both tracks of the second Chia VDF competition and earning $100,000!</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex">
+                        <div class="year"></div>
+                        <a href="/2019/07/17/bram-twit-tv-interview.en.html" class="content">
+                            <div class="date">July 17</div>
+                            <div class="headline">This Week in Tech interviews Bram Cohen about Chia, and Libra</div>
+                            <div class="preview">Following the release of our green paper and the launch of our Proof of Space competition Chia has received lots of positive attention fr...</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex">
+                        <div class="year"></div>
+                        <a href="/2019/07/07/chia-network-announces-pos-competition.en.html" class="content">
+                            <div class="date">July 7</div>
+                            <div class="headline">Chia Network Announces Proof of Space Competition with $100k in Total Prize Money</div>
+                            <div class="preview">We’re excited to announce Chia’s Proof of Space competition. In Chia’s Proof of Space, rewards are given to farmers that can prove that t...</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex">
+                        <div class="year"></div>
+                        <a href="/2019/04/04/chia-network-announces-second-vdf-competition-with-in-total-prize-money.en.html" class="content">
+                            <div class="date">April 4</div>
+                            <div class="headline">Chia Network Announces 2nd VDF Competition with $100,000 in Total Prize Money</div>
+                            <div class="preview">A few months ago we wrapped up our initial VDF implementation competition and were amazed by the excellent quality of the submissions. Th...</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex">
+                        <div class="year"></div>
+                        <a href="/2019/03/25/building-a-sustainable-blockchain-with-your-help.en.html" class="content">
+                            <div class="date">March 25</div>
+                            <div class="headline">Building a Sustainable Blockchain, With Your Help</div>
+                            <div class="preview">Decentralized, digital currencies will soon evolve from being a futuristic concept to a mainstream reality. They’ll offer liquidity to th...</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex">
+                        <div class="year"></div>
+                        <a href="/2019/01/17/chia-vdf-competition-round-1-results-and-announcements.en.html" class="content">
+                            <div class="date">January 17</div>
+                            <div class="headline">Chia VDF Competition Round 1 Results and Announcements</div>
+                            <div class="preview">Thank you to everyone who participated in the first round of Chia Network’s Verifiable Delay Function (VDF) competition. The round conclu...</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex first-of-year">
+                        <div class="year">2018</div>
+                        <a href="/2018/11/07/chia-vdf-competition-guide.en.html" class="content">
+                            <div class="date">November 7</div>
+                            <div class="headline">Chia VDF Competition Guide</div>
+                            <div class="preview">Chia Network recently launched a three month long competition to create faster implementations of our proofs of time and get a better han...</div>
+                        </a>
+                    </div>
+                    
+                
+                    
+                    <div class="post d-flex">
+                        <div class="year"></div>
+                        <a href="/2018/06/11/the-asic-resistance-of-proof-of-space.en.html" class="content">
+                            <div class="date">June 11</div>
+                            <div class="headline">The ASIC Resistance of Proof of Space</div>
+                            <div class="preview">A recent podcast speculated quite a bit about the economics of Chia Network’s new proof of space and time consensus algorithm.</div>
+                        </a>
+                    </div>
+                    
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between py-5">
+                    <div class="contact-details">
+                        <a href="https://github.com/Chia-Network" target="_blank" rel="noreferrer noopener"><img class="m-2" src="/img/social/github_light.svg" alt="GitHub Logo"></a>
+                        <a href="https://twitter.com/chia_project" target="_blank" rel="noreferrer noopener"><img class="m-2" src="/img/social/twitter_light.svg" alt="Twitter Logo"></a>
+                        <a href="https://www.facebook.com/ChiaProject" target="_blank" rel="noreferrer noopener"><img class="m-2" src="/img/social/facebook_light.svg" alt="Facebook Logo"></a>
+                        <a href="https://instagram.com/chia_project" target="_blank" rel="noreferrer noopener"><img class="m-2" src="/img/social/instagram_light.svg" alt="Instagram Logo"></a>
+                        <a href="https://medium.com/@chia.net" target="_blank" rel="noreferrer noopener"><img class="m-2" src="/img/social/medium_light.svg" alt="Medium Logo"></a>
+                    </div>
+                    <div style="text-align: right">
+                        <img class="logo" src="/img/chia_logo.svg" alt="chia_logo">
+                        <div class="copyright">© Chia Network 2021 | <a href="/terms">Terms</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+  </body>
+</html>

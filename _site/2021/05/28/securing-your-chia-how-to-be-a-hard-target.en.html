@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Securing Your Chia - How to Be a Hard Target</title>
+  <meta name="description"
+    content="Many people are coming into Chia that are brand new to crypto. Many are veterans in crypto but new to computer hardware. Farming and plotting are very multid...">
+
+  <!-- jQuery and Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/main.css?version=1">
+  <link rel="canonical" href="http://localhost:4000/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html">
+  <link rel="alternate" type="application/rss+xml" title="Chia Network"
+    href="http://localhost:4000/feed.xml">
+
+  
+  <meta name="twitter:image" content="https://chia.net/android-chrome-384x384.png" />
+  
+  <meta name="twitter:title" content="Securing Your Chia - How to Be a Hard Target">
+  
+  <meta name="twitter:description" content="Many people are coming into Chia that are brand new to crypto. Many are veterans in crypto but new to computer hardware. Farming and plotting are very multidisciplinary, requiring knowledge of storage, networking, and computer architecture. For example, even though I had dealt with using ssh on my home network before Chia, I had never adequately had to lock down a system that I could remotely access securely - and I had to learn everything as I went. One night in the chat, someone told me to check /var/log/auth.log on my system that I had in co-location, and I nearly had a panic attack (you will see hundreds of failed log-in attempts from random IP addresses). I had secured the system with a powerful password, but I hadn’t secured the system to only be accessed with a single ssh key. In the early days of Chia, we were playing with TXCH on the testnet. I had my seed in many plotting systems to make my scripts easier as I was still learning the ins and outs of Chia. This is not good security practice. Having a large surface area for your seed or private keys means more space to slip up or be vulnerable to a potential attack.">
+  <!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Securing Your Chia - How to Be a Hard Target | Chia Network</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Securing Your Chia - How to Be a Hard Target" />
+<meta name="author" content="[Justin England](https://www.linkedin.com/in/justindengland), [Jonmichael Hands](https://twitter.com/LebanonJon), and [Roy Natian](https://www.linkedin.com/in/roynatian)" />
+<meta property="og:locale" content="en" />
+<meta name="description" content="Many people are coming into Chia that are brand new to crypto. Many are veterans in crypto but new to computer hardware. Farming and plotting are very multidisciplinary, requiring knowledge of storage, networking, and computer architecture. For example, even though I had dealt with using ssh on my home network before Chia, I had never adequately had to lock down a system that I could remotely access securely - and I had to learn everything as I went. One night in the chat, someone told me to check /var/log/auth.log on my system that I had in co-location, and I nearly had a panic attack (you will see hundreds of failed log-in attempts from random IP addresses). I had secured the system with a powerful password, but I hadn’t secured the system to only be accessed with a single ssh key. In the early days of Chia, we were playing with TXCH on the testnet. I had my seed in many plotting systems to make my scripts easier as I was still learning the ins and outs of Chia. This is not good security practice. Having a large surface area for your seed or private keys means more space to slip up or be vulnerable to a potential attack." />
+<meta property="og:description" content="Many people are coming into Chia that are brand new to crypto. Many are veterans in crypto but new to computer hardware. Farming and plotting are very multidisciplinary, requiring knowledge of storage, networking, and computer architecture. For example, even though I had dealt with using ssh on my home network before Chia, I had never adequately had to lock down a system that I could remotely access securely - and I had to learn everything as I went. One night in the chat, someone told me to check /var/log/auth.log on my system that I had in co-location, and I nearly had a panic attack (you will see hundreds of failed log-in attempts from random IP addresses). I had secured the system with a powerful password, but I hadn’t secured the system to only be accessed with a single ssh key. In the early days of Chia, we were playing with TXCH on the testnet. I had my seed in many plotting systems to make my scripts easier as I was still learning the ins and outs of Chia. This is not good security practice. Having a large surface area for your seed or private keys means more space to slip up or be vulnerable to a potential attack." />
+<link rel="canonical" href="http://localhost:4000/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html" />
+<meta property="og:url" content="http://localhost:4000/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html" />
+<meta property="og:site_name" content="Chia Network" />
+<meta property="og:image" content="https://chia.net/android-chrome-384x384.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-05-28T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:image" content="https://chia.net/android-chrome-384x384.png" />
+<meta property="twitter:title" content="Securing Your Chia - How to Be a Hard Target" />
+<meta name="twitter:site" content="@chia_project" />
+<meta name="twitter:creator" content="@[Justin England](https://www.linkedin.com/in/justindengland), [Jonmichael Hands](https://twitter.com/LebanonJon), and [Roy Natian](https://www.linkedin.com/in/roynatian)" />
+<meta property="article:publisher" content="https://www.facebook.com/ChiaProject" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","dateModified":"2021-05-28T00:00:00+08:00","datePublished":"2021-05-28T00:00:00+08:00","image":"https://chia.net/android-chrome-384x384.png","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html"},"url":"http://localhost:4000/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html","author":{"@type":"Person","name":"[Justin England](https://www.linkedin.com/in/justindengland), [Jonmichael Hands](https://twitter.com/LebanonJon), and [Roy Natian](https://www.linkedin.com/in/roynatian)"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/img/chia_logo.svg"},"name":"[Justin England](https://www.linkedin.com/in/justindengland), [Jonmichael Hands](https://twitter.com/LebanonJon), and [Roy Natian](https://www.linkedin.com/in/roynatian)"},"headline":"Securing Your Chia - How to Be a Hard Target","description":"Many people are coming into Chia that are brand new to crypto. Many are veterans in crypto but new to computer hardware. Farming and plotting are very multidisciplinary, requiring knowledge of storage, networking, and computer architecture. For example, even though I had dealt with using ssh on my home network before Chia, I had never adequately had to lock down a system that I could remotely access securely - and I had to learn everything as I went. One night in the chat, someone told me to check /var/log/auth.log on my system that I had in co-location, and I nearly had a panic attack (you will see hundreds of failed log-in attempts from random IP addresses). I had secured the system with a powerful password, but I hadn’t secured the system to only be accessed with a single ssh key. In the early days of Chia, we were playing with TXCH on the testnet. I had my seed in many plotting systems to make my scripts easier as I was still learning the ins and outs of Chia. This is not good security practice. Having a large surface area for your seed or private keys means more space to slip up or be vulnerable to a potential attack.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-157739092-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-157739092-1');
+</script>
+  
+</head>
+
+  <body>
+    
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand ml-xl-5 p-2" href="/"><img src="/img/chia_logo.svg" alt="Chia Logo"></a>
+    <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/download">Download</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/blog">Blog</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/news">News</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/faq">FAQ</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/greenpaper">Green Paper</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/about">About</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/careers">Careers</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/contact">Contact</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+        </ul>
+
+        <div class="nav-divider px-2 px-xl-5"><div></div></div>
+
+        
+        
+        <div class="dropdown d-none d-lg-block pr-xl-3">
+            
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="languageMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">English</a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="languageMenuLink">
+                <a class="dropdown-item" href="/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html">English</a><a class="dropdown-item" href="/fr/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html">Français</a><a class="dropdown-item" href="/jp/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html">日本語</a><a class="dropdown-item" href="/cn/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html">中文</a><a class="dropdown-item" href="/nl/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html">Nederlands</a><a class="dropdown-item" href="/de/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html">Deutsch</a><a class="dropdown-item" href="/es/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html">Español</a><a class="dropdown-item" href="/sr/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html">Srpski</a><a class="dropdown-item" href="/pt/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html">Português</a><a class="dropdown-item" href="/tr/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html">Türk</a><a class="dropdown-item" href="/ru/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html">Русский</a>
+            </div>
+        </div>
+        <div class="dropup d-lg-none py-3">
+            
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="languageMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">English</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="languageMenuLink">
+                <a class="dropdown-item" href="/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html">English</a><a class="dropdown-item" href="/fr/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html">Français</a><a class="dropdown-item" href="/jp/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html">日本語</a><a class="dropdown-item" href="/cn/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html">中文</a><a class="dropdown-item" href="/nl/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html">Nederlands</a><a class="dropdown-item" href="/de/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html">Deutsch</a><a class="dropdown-item" href="/es/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html">Español</a><a class="dropdown-item" href="/sr/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html">Srpski</a><a class="dropdown-item" href="/pt/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html">Português</a><a class="dropdown-item" href="/tr/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html">Türk</a><a class="dropdown-item" href="/ru/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html">Русский</a>
+            </div>
+        </div>
+    </div>   
+</nav>
+
+
+
+<div class="blog-post">
+  <article class="container" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="row">
+      <div class="col-md-10 mx-auto">
+        <div class="title">
+          <h1>Securing Your Chia - How to Be a Hard Target</h1>
+          <span class="author"><p><a href="https://www.linkedin.com/in/justindengland">Justin England</a>, <a href="https://twitter.com/LebanonJon">Jonmichael Hands</a>, and <a href="https://www.linkedin.com/in/roynatian">Roy Natian</a></p>
+</span> &mdash; <span class="date">May 28, 2021</span>
+        </div>
+
+        <div class="content">
+          <p>Many people are coming into Chia that are brand new to crypto. Many are veterans in crypto but new to computer hardware. Farming and plotting are very multidisciplinary, requiring knowledge of storage, networking, and computer architecture. For example, even though I had dealt with using ssh on my home network before Chia, I had never adequately had to lock down a system that I could remotely access securely - and I had to learn everything as I went. One night in the chat, someone told me to check <code class="language-plaintext highlighter-rouge">/var/log/auth.log</code> on my system that I had in co-location, and I nearly had a panic attack (you will see hundreds of failed log-in attempts from random IP addresses). I had secured the system with a powerful password, but I hadn’t secured the system to only be accessed with a single ssh key. In the early days of Chia, we were playing with TXCH on the testnet. I had my seed in many plotting systems to make my scripts easier as I was still learning the ins and outs of Chia. This is not good security practice. Having a large surface area for your seed or private keys means more space to slip up or be vulnerable to a potential attack.</p>
+
+<p>In the talk, we will be covering tough lessons learned over the years of managing and securing crypto keys and general best security practices. I will tell a few stories about close calls, the time the whales think they got hacked, and the one area where I think I’m very well versed in use of full disk encryption on your SSD &amp; operating system and data durability and probability for keeping your keys safe.
+See you guys on Friday 5/28!
+—JM</p>
+
+<p><strong>Chia Livestream: Securing Your Chia - How to Be a Hard Target</strong><br />
+When: Friday, May 28th 12:00pm PST (7:00pm UTC)<br />
+Where: <a href="https://chia-net.zoom.us/j/87579815863">Zoom</a> or <a href="https://www.youtube.com/channel/UChFkJ3OAUvnHZdiQISWdWPA">Youtube</a></p>
+
+<hr />
+
+<h2 id="introduction">Introduction</h2>
+<p>Security is about making better choices. You can never be 100% secure, but you can always make better choices and be safer. Making better choices is especially important when it comes to protecting things of value, like the XCH in your Chia wallet!</p>
+
+<p>There are two main areas to consider: securing your devices and your security habits</p>
+
+<p>Keep this in mind: <em>Don’t trust anyone.</em></p>
+
+<p>Assume malicious intent and verify things for yourself. Being reasonably paranoid when it comes to crypto is a good mindset. Your goal is to make things harder for the bad guys, and the steps below will help you do that. We’re going to briefly go over the basics you need to do and then cover more advanced security practices in more detail.</p>
+
+<h2 id="the-basics">The Basics</h2>
+
+<h3 id="securing-your-devices">Securing Your Devices</h3>
+<ul>
+  <li>Keep your operating systems up to date</li>
+  <li>Keep your router firmware up to date</li>
+  <li>Use strong passwords for your computer login and other accounts</li>
+  <li>Don’t let people use your computer account. Use guest accounts</li>
+</ul>
+
+<h3 id="your-habits">Your Habits</h3>
+<ul>
+  <li>Do not trust anyone. Assume malicious intent, especially on the internet.</li>
+  <li>Do not share your 24 word mnemonic key(s) with anyone.</li>
+  <li>When downloading Chia software, make sure you are downloading from the <code class="language-plaintext highlighter-rouge">chia.net</code> domain.</li>
+  <li>Avoid public Wifi, but if you use public Wifi, use a VPN</li>
+  <li>Don’t become a target: Don’t boast about your winnings. Keep it to yourself.</li>
+</ul>
+
+<h2 id="beyond-the-basics">Beyond the Basics</h2>
+
+<h3 id="cold-storage">Cold Storage</h3>
+<p>Your XCH is only as secure as your wallet.</p>
+
+<p>If your Chia wallet is not accessible electronically, then it becomes incredibly difficult to compromise and steal (basically impossible). We urge you to store your XCH in a <em>cold wallet</em>.</p>
+
+<p>In broad strokes: You will create a wallet through a new 24 word mnemonic key on a secured computer not connected to the internet. Store the key in a safe place, like a safe, and not in a computer. You will set your XCH receive address to the wallet address associated with this new mnemonic key that’s in cold storage.</p>
+
+<p>Some methods of cold wallet storage include:</p>
+<ul>
+  <li>writing your key on paper and storing it in a vault</li>
+  <li>using a metal wallet, where you press your key into pieces of metal</li>
+  <li>hardware wallets that are basically USB drives that store your key</li>
+</ul>
+
+<p>One way of utilizing wallets in a safe way is this: Most of your XCH is stored in a cold wallet. You then have an accessible wallet (also known as a <em>hot wallet</em>) where you store a little bit of XCH for spending as you need it.</p>
+
+<p>Read more here: <a href="https://github.com/Chia-Network/chia-blockchain/wiki/Chia-Keys-Management#2-keys-farming-key--cold-storage-key">Chia Keys Management</a> and <a href="https://github.com/Chia-Network/chia-blockchain/wiki/Good-Security-Practices-on-Many-Machines">Good Security Practices on Many Machines</a></p>
+
+<h3 id="beware-of-spearphishing">Beware of Spearphishing</h3>
+<p>Do you actually know the person you are talking to online is who they say they are? Do you know if the website you’re on is legitimate?</p>
+
+<p>Spearphishing is a targeted attack where you are scammed in some way through legitimate-looking fake websites or message.</p>
+<ul>
+  <li>When downloading Chia installers, verify the website you are on is <code class="language-plaintext highlighter-rouge">chia.net</code> and make sure there is a lock icon in the address bar.</li>
+  <li>Anyone contacting you through email or messaging apps could be potentially trying to scam you. Beware of the links and files they send you. Double check who they say they are. You can read more about phishing and how to protect yourself <a href="https://www.phishing.org/what-is-phishing">here</a>.</li>
+</ul>
+
+<h3 id="third-party-tools-and-scripts">Third-party Tools and Scripts</h3>
+<p>It is wonderful seeing the many community driven tools that have sprung up to help you on your Chia farming journey. These tools can be very useful, but they come with a risk. Unless you audit the code yourself, you really don’t know if what you’re using isn’t going to steal your private keys.</p>
+
+<p>Even if you are using a popular tool that many say is safe, you don’t know if the next version of the tool has had malicious code added to it.</p>
+
+<h3 id="remove-remote-access-tools">Remove Remote Access Tools</h3>
+<p>There are many stories of attackers using weaknesses with remote access tools like TeamViewer or Microsoft Remote Desktop to remotely infiltrate a computer and steal information. We highly recommend you turn off or uninstall such software on your computer. How to turn off remote access tools varies across operating systems so we leave it to you to research online and use the many guides out there to do this.</p>
+
+<h3 id="device-encryption">Device Encryption</h3>
+<p>Encryption is one of the best tools in your arsenal. Enabling device encryption for your computers is highly recommended. If your computer ever gets lost or stolen, your data will remain inaccessible. Microsoft has a <a href="https://support.microsoft.com/en-us/windows/turn-on-device-encryption-0c453637-bc88-5f74-5105-741561aae838">support doc</a> for this, macOS has <a href="https://support.apple.com/en-ca/HT204837">FileVault</a>, and Linux has a variety of methods for this that you can look up.</p>
+
+<h2 id="what-we-are-doing">What We Are Doing</h2>
+<p>We will be updating how we deploy installers.</p>
+<ul>
+  <li>You will be able to verify downloaded installers using SHA-256 checksums</li>
+  <li>We will never release anything aside from installers. That is, the installer will have the filetype needed for your operating system. There will be no .rar or .zip file installers. If you see such an installer, delete it and report it immediately.</li>
+</ul>
+
+<p>It will take some time to implement all our suggestions, but trust us, it’s worth it. Take the time and be more secure. Stay vigilant out there!</p>
+
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+    
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between py-5">
+                    <div class="contact-details">
+                        <a href="https://github.com/Chia-Network" target="_blank" rel="noreferrer noopener"><img class="m-2" src="/img/social/github_light.svg" alt="GitHub Logo"></a>
+                        <a href="https://twitter.com/chia_project" target="_blank" rel="noreferrer noopener"><img class="m-2" src="/img/social/twitter_light.svg" alt="Twitter Logo"></a>
+                        <a href="https://www.facebook.com/ChiaProject" target="_blank" rel="noreferrer noopener"><img class="m-2" src="/img/social/facebook_light.svg" alt="Facebook Logo"></a>
+                        <a href="https://instagram.com/chia_project" target="_blank" rel="noreferrer noopener"><img class="m-2" src="/img/social/instagram_light.svg" alt="Instagram Logo"></a>
+                        <a href="https://medium.com/@chia.net" target="_blank" rel="noreferrer noopener"><img class="m-2" src="/img/social/medium_light.svg" alt="Medium Logo"></a>
+                    </div>
+                    <div style="text-align: right">
+                        <img class="logo" src="/img/chia_logo.svg" alt="chia_logo">
+                        <div class="copyright">© Chia Network 2021 | <a href="/terms">Terms</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+  </body>
+</html>

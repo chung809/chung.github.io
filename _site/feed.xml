@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Chia Network</title>
+    <description>A better blockchain and smart transaction platform which is more decentralized, more efficient, and more secure.
+</description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Mon, 26 Jul 2021 15:18:42 +0800</pubDate>
+    <lastBuildDate>Mon, 26 Jul 2021 15:18:42 +0800</lastBuildDate>
+    <generator>Jekyll v3.9.0</generator>
+    
+      <item>
+        <title>A Vision for DeFi in Chia</title>
+        <description>&lt;p&gt;In addition to a new consensus algorithm, with Chia we’ve also built a new on-chain programming environment called Chialisp which is just as powerful as Solidity while also being far more auditable, and scalable. It also fosters much better software development practices. As an example of the power of on-chain programming in Chia, and how it differs from Solidity, in this post I’ll give an overview of how it enables truly decentralized exchange with significant defenses against miner/farmer extracted value (MEV). I will also explain the possibilities  of automated market makers (AMMs) in Chia.&lt;/p&gt;
+
+&lt;p&gt;Chia works in the coin set model (similar to Bitcoin’s UTXO model): The only persistent data is the current set of unspent coins, which have sizes and rules about how they can be spent. When a coin is spent it can make new coins using its value but the original coin is gone forever. All persistent data has to be kept in coins. This is much better for scaling because the data which full nodes have to keep track of is simpler and smaller than the objects which the EVM has to store. Validating a block requires running all of its transactions but the only output is a list of coins which are spent and destroyed. This allows us to have an effective transaction rate greater than Ethereum’s while still allowing a full node to be easily run on an average desktop. At first it looks like this makes it much harder to develop smart coins in Chia, but the flattening of data types comes with some great benefits. Everything interoperates with everything else, and pieces of functionality can be reused and composed on top of each other.&lt;/p&gt;
+
+&lt;p&gt;A fundamental tool for doing commerce in Chia is coloured coins. A coloured coin represents a tokenization of some kind, with coin sizes whose melt value is extremely small but represent something else at a high ratio. (The default divisibility of a coloured coin is a billion. There’s room for this because a Chia is a trillion Mojo, which is the smallest indivisible unit, comparable to a Satoshi in Bitcoin). Superficially this sounds like Omni protocol (a colouration format on Bitcoin), but the colouration of coins can be validated in a very lightweight manner. In fact it is so lightweight that even smart coins can do it, unlike in Omni protocol which requires running a full node to find out which coloured coins aren’t counterfeit. This is done while preserving the ability of coloured coins to have just as smart of functionality as non-coloured coins. You could even have a coloured coin implemented in a coloured coin.&lt;/p&gt;
+
+&lt;p&gt;One of the new pieces of functionality which our coloured coin implementation enables is that it allows ‘offers’. For example, if you want to trade some chia for some of a coloured coin, you can make an unfinished transaction which burns some chia and prints some of the coloured coin. This will be an invalid transaction by itself but you can take your offer and send it to an exchange, or email it to a friend, or post it on reddit. Whoever receives it will be able to accept the offer by making their own partial transaction which prints a counterbalancing amount of chia and burns a counterbalancing amount of coloured coin and combining with yours to make a valid transaction which will go through on the blockchain. This is valid because in Chia everything in a block happens simultaneously so the funds ‘move’ in one step from one input to the other output without there being any moment where too many coins exist. In fact it’s possible for a third party to do bookmaking of multiple offers of a variety of different assets and as long as the amounts add up, everything will go through.&lt;/p&gt;
+
+&lt;p&gt;To understand miner extracted value, how it’s a problem, and what can be done about it, let’s go through an example. Let’s say the current ‘true’ price of chia (which it’s trading at in high volumes elsewhere) is $1000, and there’s one offer to sell one chia for anywhere between $900 and $1200 and one offer to buy one chia for between $800 and $1100. This can be done through offers on chain if there’s a reasonably trustworthy stablecoin. In this case a completely honest/altruistic exchange would match the buyer and seller at a price of $1000 while a maximally greedy/dishonest one would buy one chia for $900 and sell it for $1100 and pocket the $200 difference. If miners/farmers are the ones doing bookmaking they have no reputation to maintain and should be assumed to be maximally greedy. In blockchains this is called ‘miner extracted value’ while in finance it’s called ‘pocketing the spread’.&lt;/p&gt;
+
+&lt;p&gt;An important note about prices: There is no one true fair price of a thing. There are prices paid for things, and ideally when someone buys a thing there isn’t a cheaper price they could have bought an identical thing for and when someone sells a thing there isn’t a greater price they could have sold it for. There’s always some noise and slop in the system and even in theoretically ideal circumstances markets become very efficient but not so efficient that whoever’s putting the market together doesn’t have a way of staying in business doing so. Figuring out what prices ‘should’ be, or at least approximating that reasonably, is the whole job of a marketplace. Designating someone to report a ‘true’ price of a thing doesn’t fix the problem. Even if that person is ‘honest’ no one individual knows all the information in the world or has all the insights into how to guess future prices. That individual’s weaknesses will be a direct opening into market participants getting exploited.&lt;/p&gt;
+
+&lt;p&gt;There is a real role in markets for large bookmakers which, unlike miners/farmers, have a reputation to maintain and are trusted to not pocket the spread and set prices in a way which is reasonably representative of the total set of offers. With Chia offers it’s possible for a bookmaker to aggregate several offers together and introduce them to the blockchain as a single unit so a farmer can’t piecemeal remove some of them to their own advantage. An exchange which does this is trusted a little but the worst thing they could do is pocket the spread. A more traditional trusted blockchain exchange can simply pocket everyone’s money or treat deposits as a no interest loan and invest them in high risk investments on the back end and keep the returns for themselves.&lt;/p&gt;
+
+&lt;p&gt;Another way of reducing MEV which works synergistically with the above is to have price oracles. (In computer science, things which report difficult to find or compute information are called ‘oracles’.) A price oracle reports a current exchange rate. To understand how this works we first need to explain singletons.&lt;/p&gt;
+
+&lt;p&gt;A singleton is an identity which is embodied by exactly one coin at any given time, and where it’s possible for coins to validate that they’re interacting with the current representative of that identity. It’s similar to, but simpler than, coloured coins. An NFT is barely more than a raw singleton. Singletons are also the foundation of rate limited wallets, distributed identities, pool protocol, and price oracles.&lt;/p&gt;
+
+&lt;p&gt;You can read the technical details of how singletons are implemented &lt;a href=&quot;https://chialisp.com/docs/puzzles/singletons&quot;&gt;here&lt;/a&gt;. This functionality has already been built and used for our &lt;a href=&quot;https://chialisp.com/docs/puzzles/pooling&quot;&gt;standard pooling protocol&lt;/a&gt;. You can &lt;a href=&quot;https://github.com/Chia-Network/chia-blockchain/tree/main/chia/wallet/cc_wallet&quot;&gt;review the source&lt;/a&gt; of how we’ve implemented a prototype of coloured coins that I originally introduced &lt;a href=&quot;https://www.chia.net/2020/04/29/coloured-coins-launch.en.html&quot;&gt;here&lt;/a&gt;. We will update this once we update our coloured coin implementation details on &lt;a href=&quot;https://chialisp.com&quot;&gt;chialisp.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;As ridiculous as it sounds, a price oracle which has no security on it whatsoever other than that it only reports one price per block provides significant resistance to MEV. Offers can be made to support a range of possible prices but only use the one provided by the designated oracle. Because all transactions in a block in Chia happen simultaneously, this means a malicious miner can make the price too low or too high but not both. In the example given above they could either buy one chia for $900 and sell it elsewhere for $1000 making $100 or buy one chia elsewhere and sell it for $1100 also making $100 but both are better than the example with no price oracle where they could pull off both and make $200 without even having to make an external transaction.&lt;/p&gt;
+
+&lt;p&gt;Ideally in a healthy market you want offers to buy and sell posted at all times. In order for someone to successfully turn a profit actively trading at all times, they need access to orders, liquidity of their own to trade, and expertise in trading. Or maybe they don’t need expertise in trading and one weird trick will do. Automated market makers (AMMs), which are on-chain programs which follow a defined trading strategy have been very successful. Generally they work by having deposits of two different currencies, in our example they could be chia and a coloured coin. The AMM then accepts deposits and withdrawals with the rules that (a) If someone makes a deposit they’re given claims to the funds the AMM holds in proportion to their contribution and (b) The AMM assumes that the value of the amounts of the two currencies it’s holding are equal to get an exchange rate. AMMs in practice have worked well despite the simple trading strategy because they have a lot of order flow and due to their accessibility. It’s easy for currency holders to provide them liquidity while having confidence that they won’t get ripped off.&lt;/p&gt;
+
+&lt;p&gt;Implementing an AMM in Chia&lt;/p&gt;
+
+&lt;p&gt;It is straightforward to implement AMMs in Chia, and will be part of future development. The deposits are held by a pair of singletons (in the case of pairing chia with a coloured coin, one coloured and one not) which spend in unison and work together. Unlike in Solidity, instead of the singletons remembering all deposits it’s far more elegant and powerful for the pairing to have its own internal use coloured coin. That way the AMM itself only needs to remember its total deposits and the user deposits can be self-custodied and even support smart functionality like rate limited wallets and ridiculous things like pairing with other AMMs. When a user wants to make a deposit with the AMM, they make an offer to trade some of their own funds for some of the AMM’s internal use token and aggregate that with the AMM accepting the offer. The only logic the AMM has to do is be told by the solution what the new amounts of chia, paired coloured coin, and its internal use coloured coin are and decide whether it’s okay with that. Using the AMM for a currency exchange is the same but the offer is for the tokens being paired without using the internal coin.&lt;/p&gt;
+
+&lt;p&gt;In practice offers are likely to be a bit more complicated. The AMM should act as a price oracle and offers should use that. Also, different transactions using the AMM will all conflict so it’s best if there’s an exchange which aggregates them all and introduces the one big transaction to the blockchain. It’s even possible to make a hybrid ‘mostly’ automatic market maker which requires a specified key to sign off on all transactions but follows predefined business logic about how deposits move. That gets the benefits of a lightly trusted exchange which isn’t able to exit scam with everyone’s money, but can still help reduce the spread. This further allows others to provide the liquidity which that exchange uses while still having confidence that their funds are being held properly.&lt;/p&gt;
+
+&lt;p&gt;The combination of all of the above will lead to chia being a far more secure and liquid marketplace for tokens than has ever existed before. There’s a long road ahead to build it but it will be well worth it.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 13 Jul 2021 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/07/13/a-vision-for-defi-in-chia.en.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/07/13/a-vision-for-defi-in-chia.en.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>How to Pick a Chia Pool</title>
+        <description>&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/blog/finding-pool.png&quot; /&gt;
+&lt;/p&gt;
+&lt;p&gt;Knowing how to find a safe, secure, and trustworthy pool is important. There are many pools bidding for your plots, and it is your responsibility to find the best one for you and your needs. Your choice of what pool to join should be carefully researched, not simply based on promises of gold and riches. There are many factors to consider when deciding the right Chia pool for you:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Pool operator experience, reputation, community engagement&lt;/li&gt;
+  &lt;li&gt;Transparency and communication&lt;/li&gt;
+  &lt;li&gt;Fee payout structure&lt;/li&gt;
+  &lt;li&gt;Security and reliability&lt;/li&gt;
+  &lt;li&gt;Customer service, support, and documentation&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;How you prioritize and value these factors in your decision to join a Chia pool is up to you.&lt;/p&gt;
+
+&lt;p&gt;To learn more about pools in Chia, check out the &lt;a href=&quot;https://github.com/Chia-Network/chia-blockchain/wiki/Pooling-FAQ&quot;&gt;Pooling FAQ&lt;/a&gt; and the &lt;a href=&quot;https://github.com/Chia-Network/chia-blockchain/wiki/Pooling-User-Guide&quot;&gt;Pooling User Guide&lt;/a&gt; in the wiki. Questions can be asked in the &lt;a href=&quot;https://keybase.io/team/chia_network.public&quot;&gt;#pools channel in Keybase&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;pool-operator-experience-reputation-community-engagement&quot;&gt;Pool operator experience, reputation, community engagement&lt;/h2&gt;
+
+&lt;p&gt;One of the key things to consider is a pool provider’s experience and track record in running pools. Choosing a provider already established in providing pool services for other cryptocurrencies (especially Proof of Space crypto) makes it a lot easier to gauge their future performance. The average person with no experience running and scaling secure web applications likely won’t be able to run a pool as properly or securely.&lt;/p&gt;
+
+&lt;p&gt;Related to experience is a pool operator’s reputation. Their reputation does not have to be in the pooling provider business; it can be from a number of other projects and businesses they have worked on. You have to be the judge here as to what is relevant to you in order to decide if a pooling provider will be responsible for paying out your fair share and providing the security while doing so!&lt;/p&gt;
+
+&lt;p&gt;As an example of balancing personal thresholds of reputation and trust, let’s look at an example that many experienced crypto users have heard about: Nicehash. Nicehash is a big provider for pooling several cryptos together. They were once victims of an attack that cost them and their users millions of dollars worth of cryptocurrency. However, through good transparency, communication, and working hard to mitigate and recover from the effects of a very bad situation, they managed to be around still today. While there is an occasional mixed debate on if their efforts were thorough enough, they clearly came out of the situation strongly, taking actions that instilled confidence in enough of their users with a successful pooling operation still in place. While every farmer has a different perspective and personal threshold on what is a good reputation or level of trust, knowing and understanding what your own threshold for what good looks like is key.&lt;/p&gt;
+
+&lt;p&gt;Community engagement is also important for many people. This doesn’t necessarily mean engagement on a day-to-day level, but should you have problems, it’s good to have an easy way to get in touch with someone that can provide some kind of direction to support you in your time of need. Some providers are regularly available through services like Telegram or Discord or even through Facebook or Twitter.&lt;/p&gt;
+
+&lt;h2 id=&quot;transparency-and-communication&quot;&gt;Transparency and communication&lt;/h2&gt;
+
+&lt;p&gt;The transparency that a pool provides is another important factor. First and foremost is their payment structure for individual farmers’ shares of the profits of pooled farming. How are they going to reward you for your part of the pool? It is very common for pools to operate on a percentage of each farmer’s earnings. Running a pool isn’t an easy task and takes considerable resources and technical knowledge to do it at a basic satisfactory level. For their work, it is only fair that a pool operator will charge you, the farmer, for providing the service that they do. Many farms have settled over time into a standard of setting fees in the 1-3% range of the rewards. Another thing to be aware of is how they structure their shares, when and how you are earning shares, and when those shares are no longer counted.&lt;/p&gt;
+
+&lt;p&gt;Also, it’s good to consider what the process of leaving their pool is like. The system allows pools to establish their own “cool-down” period for how long between when you initiate a pool-leave to when your plots are finally free from it. This period can be as short as a few minutes or as long as several hours–at the pool’s discretion (though a generally accepted industry average is 30 minutes). A pool with a cool-down time long enough to prevent cheaters from taking shares without contributing but not so long as to lock you up in their pool needlessly long after you have chosen to leave is a pool that is looking out for both you and the pool fairly.&lt;/p&gt;
+
+&lt;p&gt;Another point to consider is who is behind the pool. Many of these people running a pool might not be willing to plaster their face and full name on their pool website. With a bit of searching, are you able to identify the entity behind the service? We say “entity” here because it may very well be something you need to consider regarding legislation and laws. If not already in place, new legislation may very well be coming in the near future. Knowing that you are using a service provided by a company, or person based in America, Europe or Asia, may be a factor for you. In the unfortunate case that should ever become necessary, it is also much easier to take an entity to court in a country where you both reside.&lt;/p&gt;
+
+&lt;h2 id=&quot;fee-payout-structure&quot;&gt;Fee payout structure&lt;/h2&gt;
+
+&lt;p&gt;We expect &lt;em&gt;PPLNS&lt;/em&gt; (Pay Per Last N Shares) to be the dominant pool rewards format. In this reward format, after a set period, any shares contributed to the pool in this time period are used to determine each farmer’s payout. How long that period is can vary greatly as it is tied directly to when a pool wins a reward. &lt;em&gt;PPS&lt;/em&gt; (Pay Per Share) is another less common format where there is a predetermined time period, and the pool will keep a constant payout based on shares and the total pool performance. PPS is meant to eliminate large payout variance for the farmer, where the pool takes on the risks of any luck, bad or good. The two different formats have their pros and cons. &lt;a href=&quot;https://medium.com/luxor/mining-pool-payment-methods-pps-vs-pplns-ac699f44149f&quot;&gt;This article&lt;/a&gt; covers the payment methods in more detail (and even though it refers to mining and Bitcoin, the concepts apply to Chia pools).&lt;/p&gt;
+
+&lt;p&gt;It is up to you to read up on exactly how a pool distributes the earnings, and how well they explain and reason their shares and payout format.&lt;/p&gt;
+
+&lt;h2 id=&quot;security-and-reliability&quot;&gt;Security and reliability&lt;/h2&gt;
+
+&lt;p&gt;Gauging how secure and reliable a pool is requires looking at several factors. Pool operators need a great deal of experience in security since the pool will be holding and protecting your digital money. A single farmer might have 100 USD worth of coins being held by a pool before payouts, but imagine a thousand farmers with 100 USD each held in a pool–it quickly adds up to a big amount of money. Pools will &lt;em&gt;always&lt;/em&gt; be prime targets to malicious actors, and if the pool is not adequately secure, the money may be stolen. Things to consider include:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Do the pool operators have experience building and maintaining secure web applications?&lt;/li&gt;
+  &lt;li&gt;What is the pool operator’s reputation?&lt;/li&gt;
+  &lt;li&gt;Does their website and any applications they have use encryption?&lt;/li&gt;
+  &lt;li&gt;If they ask for your private keys, run away.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Having a pool that is reliable in regards to its up-time is very beneficial as you don’t want a pool that’s always down for periods of time, as this will affect your earnings. Having an experienced pool operator that can plan and implement updates in a timely manner is something to look for. &lt;em&gt;(That said, the Chia pooling protocol has been developed in such a way that if *you* find a plot, and the pool is offline for too long, the full 2 XCH reward will go straight to you. While this is good for you, it does mean your fellow pool members–and you when the roles are reversed–will miss out entirely on sharing.)&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;customer-service-support-and-documentation&quot;&gt;Customer service, support, and documentation&lt;/h2&gt;
+
+&lt;p&gt;If you’re an experienced crypto user, then a pooling provider with a good track record, but a minimal site with limited documentation might be good enough for you. For others, especially first-time crypto users, finding a pooling provider with an active community, clear support channels, and detailed documentation and guides will likely be preferable. Farming in a pool is not an overcomplicated process, but there are just enough technical hurdles for the uninitiated that a little support goes a long way.&lt;/p&gt;
+
+&lt;h2 id=&quot;move-if-you-want-to&quot;&gt;Move if you want to&lt;/h2&gt;
+
+&lt;p&gt;Pooling in Chia is designed to make it easy for you to change your pool membership. If you are not satisfied with your pool, you can move! You can read more about how to move to another pool in the &lt;a href=&quot;https://github.com/Chia-Network/chia-blockchain/wiki/Pooling-User-Guide&quot;&gt;Pooling User Guide&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-to-find-a-pool&quot;&gt;How to find a pool&lt;/h2&gt;
+
+&lt;p&gt;You can find a list of some Chia pools on the following websites. &lt;em&gt;Note that Chia Network does not officially endorse these websites&lt;/em&gt;. These links are provided for informational purposes only.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://miningpoolstats.stream/chia&quot;&gt;https://miningpoolstats.stream/chia&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://chiapool.directory/&quot;&gt;https://chiapool.directory&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Good luck out there, and thank you for being part of the Chia community!&lt;/p&gt;
+</description>
+        <pubDate>Fri, 09 Jul 2021 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/07/09/how-to-pick-a-chia-pool.en.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/07/09/how-to-pick-a-chia-pool.en.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Official Pooling Protocol Launched</title>
+        <description>&lt;p&gt;&lt;strong&gt;TL;DR:&lt;/strong&gt; The new plot format has arrived. Upgrade to version 1.2.0 of the Chia Blockchain software to start plotting for pools now and be sure to set up a Plot NFT before doing so. Original plots will continue to be self-farmable but can not be safely used in pools.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Less than 3 months ago the very first chia transaction happened. In the following days we got a real coin price which came in a lot higher than expected. While this was a bonanza for everyone who got in on farming early, it led to an explosion in netspace from about 100 pebibytes at launch to over 30 exbibytes today.&lt;/p&gt;
+
+&lt;p&gt;We immediately got to work after transaction launch implementing a standard secure pooling protocol according to the plan outlined in &lt;a href=&quot;https://www.chia.net/2020/11/10/pools-in-chia.html&quot;&gt;this earlier post&lt;/a&gt;. This has been on an extremely accelerated schedule and we prioritized portable pools over static ones because of overwhelming demand. The team has written and tested over nine thousand lines of code, and they’re now ready for the public to use. You can start making pool-enabled plots now even before selecting which pool you want to start with - or even deciding you want to use one. The pooling protocol has several important features which aim to make Chia the most decentralized cryptocurrency in the world.&lt;/p&gt;
+
+&lt;p&gt;With the portable pooling protocol, you can switch between pools and even go back to self-pooling (aka not being in a pool at all) whenever you want. The worst a pool can do is stiff you of the rewards you should be getting from them, and you can audit whether they’re doing that yourself. They can’t keep you from leaving.&lt;/p&gt;
+
+&lt;p&gt;On the flip side, pools are guaranteed to be able to collect any block rewards which someone currently farming with them finds. There’s a reasonable split of that reward to farmers to incentivize them to claim the reward when they find it. Double farming is impossible, and there’s no need for pools to vet farmers who wish to pool with them. Pools can allow farmers to join and leave whenever they choose, and pools compete based on fees and service. We’ve even put in hooks to make sure that if any other cryptocurrencies want to switch to proofs of space and time based off the existing Chia portable pool plots they’ll be able to keep pool functionality, but please make sure to upgrade to the latest plotting software to make sure this feature will work for you.&lt;/p&gt;
+
+&lt;p&gt;Portable pool functionality is built entirely on the base chia programming environment, hasn’t required any forks to get working, and makes farmers rather than pools make the blocks which is a big boon for security and decentralization. Even if a cabal of pools were to get over 51% of netspace, they couldn’t pull off a 51% attack on the network unless enough of their farmers wanted to participate in the attack as well. No security deposits or minimum balances are required for participating, a user can make plots and start getting paid out almost immediately.&lt;/p&gt;
+
+&lt;p&gt;Existing plots which don’t use portable pools will continue to work fine. If you wish to switch an existing farm to pooling, you can redo one plot at a time while leaving the old ones running. If you have a large enough farm that you get frequent rewards, we recommend that you not use a pool at all. There are almost 5000 reward events per day, so anyone who has a five thousandth of the total netspace will get about one reward per day on average, which results in not much variance over the course of months. Due to the overwhelming popularity of Chia farming, a five thousandth of netspace is still a lot, but it’s meaningfully lower than the equivalent proportion of space in Bitcoin–both for being able to self-pool and for a pool to hit a big enough size to be viable.&lt;/p&gt;
+
+&lt;p&gt;To learn more about how to plot and farm portable pool plots check out our &lt;a href=&quot;https://github.com/Chia-Network/chia-blockchain/wiki/Pooling-User-Guide&quot;&gt;Pooling User Guide&lt;/a&gt;. For more details about how our pooling protocol works you can review our &lt;a href=&quot;https://github.com/Chia-Network/pool-reference&quot;&gt;reference implementation for pool operators&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 07 Jul 2021 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/07/07/official-pooling-launched.en.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/07/07/official-pooling-launched.en.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Pooling Protocol Testing Entering Phase 2</title>
+        <description>&lt;p&gt;Today we are entering the &lt;a href=&quot;https://www.chia.net/assets/presentations/2021-06-02_Pooling_for_Pool_Operators.pdf#13&quot;&gt;second phase&lt;/a&gt; of our testing and roll out of the official pooling protocol. &lt;strong&gt;&lt;em&gt;This phase is for pooling operators to test the pooling protocol end to end with testnet bound portable pool plots.&lt;/em&gt;&lt;/strong&gt; Over 9000 lines of new code - much of which is Chialisp - have been written by the team since transaction launch on 5/3 to implement what we think will be the best pooling protocol for a blockchain project to date.&lt;/p&gt;
+
+&lt;p&gt;Pool operators and those curious about how the pooling protocol works can find the reference pool operating code in the &lt;a href=&quot;https://github.com/Chia-Network/pool-reference&quot;&gt;pool-reference&lt;/a&gt; GitHub repository. The correct branch for testing is &lt;a href=&quot;https://github.com/Chia-Network/chia-blockchain/tree/pools.testnet9&quot;&gt;pools.testnet9&lt;/a&gt;. Our original plan projected that we would leave three days for pool operators to test this pre-release version. However, with the holiday weekend in the United States, we expect that a full release of what will be version 1.2.0 of Chia will happen during the week of July 5 at the soonest. However, this testing phase may still find issues so there are no guarantees of which day 1.2.0 will be released for mainnet portable pooling plots. This also gives time for the operators of pools to be in position to accept new pool members after the release of 1.2.0.&lt;/p&gt;
+
+&lt;p&gt;There is still an up to 25% chance that we will have to make breaking changes to the plot NFT that would require replotting any portable pooling plot made with the current pre-release. We strongly advise farmers to wait for the actual 1.2.0 release before plotting any plots they intend to keep. Portable pooling plots made on testnet will not work on mainnet as a particular plot NFT is tied to the network it is created on.&lt;/p&gt;
+
+&lt;p&gt;To answer a frequently asked concern - your existing or “OG” plots do not require re-plotting and can continue to be self farmed and self farmed in parallel with the new portable pool plots once released. Only the creation of portable pool plots will require plotting.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 30 Jun 2021 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/06/30/pooling-protocol-phase-2.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/06/30/pooling-protocol-phase-2.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Common Misconceptions, Vol. 1</title>
+        <description>&lt;p&gt;Chia is a complex system. There is a lot of nuance and technicalities involved in understanding how all the components of Chia work together. Over the last several weeks we’ve seen several misconceptions floating around on social media and &lt;a href=&quot;https://keybase.io/team/chia_network.public&quot;&gt;Keybase&lt;/a&gt; regarding how Chia works.&lt;/p&gt;
+
+&lt;p&gt;We have compiled the most common misconceptions and questions with responses below.&lt;/p&gt;
+
+&lt;p&gt;Also, don’t forget to join us &lt;strong&gt;today&lt;/strong&gt;, Tuesday, June 15 for an AMA on plotting speed and security with Bram, Gene, and the team.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Chia Livestream: Plotting speed and security in Chia&lt;/strong&gt;
+When: Jun 15, 2021 05:00 PM Pacific Time (12:00am UTC)
+Where: &lt;a href=&quot;https://chia-net.zoom.us/j/89843076167&quot;&gt;Zoom&lt;/a&gt; or &lt;a href=&quot;https://www.youtube.com/channel/UChFkJ3OAUvnHZdiQISWdWPA&quot;&gt;Youtube&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;common-misconceptions-and-questions&quot;&gt;Common Misconceptions and Questions&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;hpool can conduct a 51% attack&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;No, they’re too small for that. At the time of writing, &lt;a href=&quot;https://www.chiaexplorer.com/charts/topFarmers&quot;&gt;going by blocks won&lt;/a&gt;, they’re currently hovering at around 33% of netspace. The numbers on their website disagree, but those likely include netspace reported by dishonest farmers—a problem that is specific to hpool and their custom pool protocol. Double-farmed net space does not win blocks, and in fact, does not even enter the Chia netspace calculation.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;A sufficiently large pool can conduct a 51% attack&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Not really, unless they manage to convince 51% of netspace to use a custom client that they can remote-control.&lt;/p&gt;
+
+&lt;p&gt;Traditionally in crypto there have been “hash pools” where miners receive work to process and submit results so the pool can create a winning block by combining all the miner’s efforts. A network using pooling like this is highly susceptible to 51% attacks when a pool has 51% of the network (or coordinates with other hash pools) because the pool is the single source of data flowing into the blockchain. Chia changes this system by having individual farmers create the winning blocks alone, and uses “reward pools” to share coins among fellow participants of it, reducing the risk dramatically as a pool will have to coordinate (as in seize direct control) of hundreds of thousands of individual farmers within the pool, rather than just modify the output of the pool itself.&lt;/p&gt;
+
+&lt;p&gt;Long story short: Chia is different, and pools can’t do a classic 51% attack. Traditional crypto pools control the entire pool’s block response (and can modify it for personal gain if it has 51%). In a Chia pool, the individual farmers contribute the block themselves without interference from the pool, and every farmer in the pool would need to agree with the pool’s rogue actions if it had 51%.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;The prefarm means Chia plans to rugpull at some point&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;If Bram Cohen had wanted to do a rug pull, he would have led with an (illegal) ICO and walked away years ago with millions or even billions without the hard work of the last three years. Instead, he invented &amp;amp; co-invented several new types of math, &lt;a href=&quot;https://link.springer.com/chapter/10.1007/978-3-319-70697-9_13&quot;&gt;co-authored a paper in a peer-reviewed journal&lt;/a&gt;, brought together a diverse team, and gained the confidence of globally respected investment firms. He is now just a minority owner of Chia Network, having given up 70% of that potential ICO profit to instead focus on the opportunity to change the world as part of something larger than himself.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Chia is designed to kill NVMe drives&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://twitter.com/bramcohen/status/1393991791590838277&quot;&gt;No&lt;/a&gt;. If you use the wrong tool for the job, the job may destroy that tool. This is to say, using some types of consumer NVMe SSD may result in those devices failing because of the high number of writes involved in the Chia plotting process. There will be some TBW wear on any NVMe drive used for Chia plotting, this does not mean all drives used for Chia plotting will fail. It is not recommended users purchase consumer NVMe drives for the purpose of Chia plotting. It is certainly not an intentional Chia feature that some consumer NVMe drives fail from Chia plotting. We do hope that farmers are using second-hand or already owned hardware whenever possible to make their Chia farm as green as possible.&lt;/p&gt;
+
+&lt;p&gt;Also, plotting on HDDs is slower but possible (and a lot of work went into ensuring that the stock plotter supports this). Alternative plotters again may be much lighter on writes, at the cost of higher RAM usage.&lt;/p&gt;
+
+&lt;p&gt;You can learn more here: &lt;a href=&quot;https://www.chia.net/2021/05/24/SSD-endurance.html&quot;&gt;Chia and SSD Endurance&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Is Chia really Green? You still use energy – and what about the e-waste?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Chia is committed to being a truly sustainable digital currency. Not just less bad. Proof-of-Work was an amazing innovation but unforeseen challenges led to extremely high energy wastefulness and diminished decentralization. Bram recognized a need to conceive an evolved Nakamoto Consensus that is truly decentralized and not inherently wasteful and energy inefficient while retaining the network security of Proof-of-Work and improving on the programmability of Ethereum. Chia’s energy use is approximately 0.1% - 0.3% that of cryptocurrencies that rely on Proof of Work.  While other cryptocurrencies may deploy Proof of Stake to reduce energy consumption, those systems will not be able to assure the same network security or deliver on decentralization.&lt;/p&gt;
+
+&lt;p&gt;We take our responsibility to the planet and society very seriously, and when Chia identified the risk of additional e-waste, we took immediate action.  Although spent NVMes is not an issue (see above), Chia will soon announce a partnership with top industry data center and storage companies to stop the current practice of shredding hard drives so they can be refurbished and have a second life once they are no longer dependable to store data.  We are confident this will reduce global e-waste dramatically and hope to make further announcements in the coming weeks.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;k33 plots are better than k32 plots&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;There truly is no difference between k32, k33, and kXX plots aside from the fact that the larger numbered plots are, indeed, larger in size, and take orders of magnitude longer to make. Beyond that, you are not improving your chances in ANY way by plotting larger files than k32. We promise. (The only reason to look at larger plots at this time is a strategic use of them allows you to min-max drive usage and not leave &amp;lt;101GB unused per drive if you Tetris things right.)&lt;/p&gt;
+
+&lt;p&gt;Another way to think about it: a single k33 takes up twice the space of a single k32, but k33’s are not denser in any way.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chia plots check&lt;/code&gt; decides your plotfile qualities (sometimes called unlucky plots)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chia plots check&lt;/code&gt; CLI utility is a tool for detecting plot files containing bad data that will fail to farm. It is sending out a static challenge, with a diff fitting the kXX size of the plotfile, so that it, on average, should return &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-n&lt;/code&gt; proofs. It does not, in any way, indicate if a plot is more likely to win against the random challenges created on the network during normal operations. This check does not mean that they are then worse or better against other, real-world challenges. It is merely a tool to detect plots that are either unable to be harvested at all, or are returning proofs far outside the expected norm due to an error in generation.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;My node is synced, but my wallet is showing 0&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The wallet and the full node each have their own sqlite database file.  The full node contains the blockchain itself, and the wallet contains transactions important to your receive addresses. You have to have both the Full Node in sync, as well as the Wallet in sync, to see the current balance of your wallet.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;“Reported” netspace by Chia can’t be trusted&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;It’s commonly argued that “Chia Network ‘claims’ the netspace is size X” or that the netspace is somehow a fabrication of marketing hype on Chia Network’s part. It’s important to note that the reported estimated size of the netspace is calculated by the software itself, using formulas and metrics that are openly documented in the open-source project in GitHub. No one person or entity is responsible for “claiming” the netspace size is X, it’s simply math that is based on the current blockchain state, using algorithms that make estimates based on activity. Yes, it can be off by a percentage depending on the current network state, but never by a material amount, and it self-corrects regularly.&lt;/p&gt;
+
+&lt;p&gt;It’s also important to note that blockchain explorers often use a different formula than the one in the Chia GUI to calculate netspace.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Chia farming and holdings are dominated by one country&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;60% of the world’s population is in Asia, 10% of the population is in Europe, and 5% is in North America. It’s simply a normal thing that the dispersion of any Blockchain network that exceeds critical mass is going to be a microcosm of normal world population expectations. The breakdown with any one region or country that has a disproportionate size of population is always going to be mirrored in a network of this size. To expect otherwise is simply unreasonable, because at the end of the day the global population is not remotely evenly distributed.&lt;/p&gt;
+
+&lt;p&gt;That said, based on traffic data, Chia is bigger in the US and Russia than in China.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Lambo when?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;There is no “Lambo when?”, it’s “Tesla Roadster when?”… this is why you are disappointed, you’re expecting the wrong car! 😉&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Is Bram okay?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Bram is very open about his neurodivergence and being “on the spectrum”, and aspects of that will result in behavioral tics that otherwise might seem out of place to a neurotypical person. Fact of the matter is, people like Bram simply communicate and interact with others a bit differently from you or I… so please stop accusing him of being on drugs just because he blinks more than you do, or stares off into space while formulating an answer.&lt;/p&gt;
+
+&lt;p&gt;There are far more people out there who are much more self-conscious about being on the spectrum than Bram is. When they see people react like this to his mannerisms, it undoes the work people like him do who openly embrace it, and can make those people feel insecure and self-conscious about themselves and their ability to “fit in” to the incorrect expectations these kinds of comments set.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Chia is a bad clone of burst&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;This is just a dismissive comment anyone can do for low effort. If you have read far enough along to get to THIS particular FAQ, you know enough to understand Chia and Burst have nothing in common beyond the fact they both use Storage and not PoW. One of the key differences is that Burst is not safe from Hellman Time-Space tradeoffs, and the optimal way to mine Burst is to add GPU Proof of Work to one’s Burst storage.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Chia is all whales, and only profitable for whales. Whales are going to take all the rewards&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Chia is designed around making spare space farming possible and profitable - as long as that is the case, whales are competing against farmers who have next to zero cost, and the whales’ benefits to scale won’t be enough to overcome that. So in the long run, the whales lose.&lt;/p&gt;
+
+&lt;p&gt;Also, even now there has never been a cryptocurrency with as many active nodes as Chia. As we approach 1,000,000 nodes, it is vital to keep in mind that 100,000 new users each adding only 50 TB each to netspace is 5 EB of new space added to the network.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;acknowledgments&quot;&gt;Acknowledgments&lt;/h3&gt;
+&lt;p&gt;A big thank you to Justin England, Gene Hoffman, JM Hands, Shane Larsen, Chris Marslender, and @beechord, @efishcent, @pyl, @morebytes, @psydafke on Keybase for their contributions.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 15 Jun 2021 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/06/15/common-misconceptions-vol-1.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/06/15/common-misconceptions-vol-1.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>AMA - Plotting speed and security in Chia</title>
+        <description>&lt;p&gt;With the release of the &lt;a href=&quot;https://github.com/madMAx43v3r/chia-plotter&quot;&gt;MadMax plotter&lt;/a&gt; there has been a lot of confusion about what improved plotting speeds mean to the security of the Chia blockchain.&lt;/p&gt;
+
+&lt;p&gt;Bram, Gene, and the team will be available to talk about how improved plotting speed is great, what the actual security considerations for the Chia blockchain are, and the kinds of changes that can be made in the future to make sure plotting and farming remain secure. Hint: Your k32’s are going to be fine.&lt;/p&gt;
+
+&lt;p&gt;We will be sticking to plotting, plotting speed, and security so questions around the official pooling protocol will be passed over. We will have more on the official pooling protocol in a subsequent Zoom soon.&lt;/p&gt;
+
+&lt;p&gt;This Zoom will now allow 1000 participants directly and will be simulcast on YouTube with unlimited viewers. Questions will be taken from Zoom and the &lt;a href=&quot;https://keybase.io/team/chia_network.public&quot;&gt;Keybase #general&lt;/a&gt; channel.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Chia Livestream: Plotting speed and security in Chia&lt;/strong&gt;&lt;br /&gt;
+When: Jun 15, 2021 05:00 PM Pacific Time (12:00am UTC)&lt;br /&gt;
+Where: &lt;a href=&quot;https://chia-net.zoom.us/j/89843076167&quot;&gt;Zoom&lt;/a&gt; or &lt;a href=&quot;https://www.youtube.com/channel/UChFkJ3OAUvnHZdiQISWdWPA&quot;&gt;Youtube&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sun, 13 Jun 2021 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/06/13/AMA-plotting-speed-and-security-in-chia.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/06/13/AMA-plotting-speed-and-security-in-chia.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Securing Your Chia - How to Be a Hard Target</title>
+        <description>&lt;p&gt;Many people are coming into Chia that are brand new to crypto. Many are veterans in crypto but new to computer hardware. Farming and plotting are very multidisciplinary, requiring knowledge of storage, networking, and computer architecture. For example, even though I had dealt with using ssh on my home network before Chia, I had never adequately had to lock down a system that I could remotely access securely - and I had to learn everything as I went. One night in the chat, someone told me to check &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/var/log/auth.log&lt;/code&gt; on my system that I had in co-location, and I nearly had a panic attack (you will see hundreds of failed log-in attempts from random IP addresses). I had secured the system with a powerful password, but I hadn’t secured the system to only be accessed with a single ssh key. In the early days of Chia, we were playing with TXCH on the testnet. I had my seed in many plotting systems to make my scripts easier as I was still learning the ins and outs of Chia. This is not good security practice. Having a large surface area for your seed or private keys means more space to slip up or be vulnerable to a potential attack.&lt;/p&gt;
+
+&lt;p&gt;In the talk, we will be covering tough lessons learned over the years of managing and securing crypto keys and general best security practices. I will tell a few stories about close calls, the time the whales think they got hacked, and the one area where I think I’m very well versed in use of full disk encryption on your SSD &amp;amp; operating system and data durability and probability for keeping your keys safe.
+See you guys on Friday 5/28!
+—JM&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Chia Livestream: Securing Your Chia - How to Be a Hard Target&lt;/strong&gt;&lt;br /&gt;
+When: Friday, May 28th 12:00pm PST (7:00pm UTC)&lt;br /&gt;
+Where: &lt;a href=&quot;https://chia-net.zoom.us/j/87579815863&quot;&gt;Zoom&lt;/a&gt; or &lt;a href=&quot;https://www.youtube.com/channel/UChFkJ3OAUvnHZdiQISWdWPA&quot;&gt;Youtube&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Security is about making better choices. You can never be 100% secure, but you can always make better choices and be safer. Making better choices is especially important when it comes to protecting things of value, like the XCH in your Chia wallet!&lt;/p&gt;
+
+&lt;p&gt;There are two main areas to consider: securing your devices and your security habits&lt;/p&gt;
+
+&lt;p&gt;Keep this in mind: &lt;em&gt;Don’t trust anyone.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Assume malicious intent and verify things for yourself. Being reasonably paranoid when it comes to crypto is a good mindset. Your goal is to make things harder for the bad guys, and the steps below will help you do that. We’re going to briefly go over the basics you need to do and then cover more advanced security practices in more detail.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-basics&quot;&gt;The Basics&lt;/h2&gt;
+
+&lt;h3 id=&quot;securing-your-devices&quot;&gt;Securing Your Devices&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Keep your operating systems up to date&lt;/li&gt;
+  &lt;li&gt;Keep your router firmware up to date&lt;/li&gt;
+  &lt;li&gt;Use strong passwords for your computer login and other accounts&lt;/li&gt;
+  &lt;li&gt;Don’t let people use your computer account. Use guest accounts&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;your-habits&quot;&gt;Your Habits&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Do not trust anyone. Assume malicious intent, especially on the internet.&lt;/li&gt;
+  &lt;li&gt;Do not share your 24 word mnemonic key(s) with anyone.&lt;/li&gt;
+  &lt;li&gt;When downloading Chia software, make sure you are downloading from the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chia.net&lt;/code&gt; domain.&lt;/li&gt;
+  &lt;li&gt;Avoid public Wifi, but if you use public Wifi, use a VPN&lt;/li&gt;
+  &lt;li&gt;Don’t become a target: Don’t boast about your winnings. Keep it to yourself.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;beyond-the-basics&quot;&gt;Beyond the Basics&lt;/h2&gt;
+
+&lt;h3 id=&quot;cold-storage&quot;&gt;Cold Storage&lt;/h3&gt;
+&lt;p&gt;Your XCH is only as secure as your wallet.&lt;/p&gt;
+
+&lt;p&gt;If your Chia wallet is not accessible electronically, then it becomes incredibly difficult to compromise and steal (basically impossible). We urge you to store your XCH in a &lt;em&gt;cold wallet&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;In broad strokes: You will create a wallet through a new 24 word mnemonic key on a secured computer not connected to the internet. Store the key in a safe place, like a safe, and not in a computer. You will set your XCH receive address to the wallet address associated with this new mnemonic key that’s in cold storage.&lt;/p&gt;
+
+&lt;p&gt;Some methods of cold wallet storage include:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;writing your key on paper and storing it in a vault&lt;/li&gt;
+  &lt;li&gt;using a metal wallet, where you press your key into pieces of metal&lt;/li&gt;
+  &lt;li&gt;hardware wallets that are basically USB drives that store your key&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;One way of utilizing wallets in a safe way is this: Most of your XCH is stored in a cold wallet. You then have an accessible wallet (also known as a &lt;em&gt;hot wallet&lt;/em&gt;) where you store a little bit of XCH for spending as you need it.&lt;/p&gt;
+
+&lt;p&gt;Read more here: &lt;a href=&quot;https://github.com/Chia-Network/chia-blockchain/wiki/Chia-Keys-Management#2-keys-farming-key--cold-storage-key&quot;&gt;Chia Keys Management&lt;/a&gt; and &lt;a href=&quot;https://github.com/Chia-Network/chia-blockchain/wiki/Good-Security-Practices-on-Many-Machines&quot;&gt;Good Security Practices on Many Machines&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;beware-of-spearphishing&quot;&gt;Beware of Spearphishing&lt;/h3&gt;
+&lt;p&gt;Do you actually know the person you are talking to online is who they say they are? Do you know if the website you’re on is legitimate?&lt;/p&gt;
+
+&lt;p&gt;Spearphishing is a targeted attack where you are scammed in some way through legitimate-looking fake websites or message.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;When downloading Chia installers, verify the website you are on is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chia.net&lt;/code&gt; and make sure there is a lock icon in the address bar.&lt;/li&gt;
+  &lt;li&gt;Anyone contacting you through email or messaging apps could be potentially trying to scam you. Beware of the links and files they send you. Double check who they say they are. You can read more about phishing and how to protect yourself &lt;a href=&quot;https://www.phishing.org/what-is-phishing&quot;&gt;here&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;third-party-tools-and-scripts&quot;&gt;Third-party Tools and Scripts&lt;/h3&gt;
+&lt;p&gt;It is wonderful seeing the many community driven tools that have sprung up to help you on your Chia farming journey. These tools can be very useful, but they come with a risk. Unless you audit the code yourself, you really don’t know if what you’re using isn’t going to steal your private keys.&lt;/p&gt;
+
+&lt;p&gt;Even if you are using a popular tool that many say is safe, you don’t know if the next version of the tool has had malicious code added to it.&lt;/p&gt;
+
+&lt;h3 id=&quot;remove-remote-access-tools&quot;&gt;Remove Remote Access Tools&lt;/h3&gt;
+&lt;p&gt;There are many stories of attackers using weaknesses with remote access tools like TeamViewer or Microsoft Remote Desktop to remotely infiltrate a computer and steal information. We highly recommend you turn off or uninstall such software on your computer. How to turn off remote access tools varies across operating systems so we leave it to you to research online and use the many guides out there to do this.&lt;/p&gt;
+
+&lt;h3 id=&quot;device-encryption&quot;&gt;Device Encryption&lt;/h3&gt;
+&lt;p&gt;Encryption is one of the best tools in your arsenal. Enabling device encryption for your computers is highly recommended. If your computer ever gets lost or stolen, your data will remain inaccessible. Microsoft has a &lt;a href=&quot;https://support.microsoft.com/en-us/windows/turn-on-device-encryption-0c453637-bc88-5f74-5105-741561aae838&quot;&gt;support doc&lt;/a&gt; for this, macOS has &lt;a href=&quot;https://support.apple.com/en-ca/HT204837&quot;&gt;FileVault&lt;/a&gt;, and Linux has a variety of methods for this that you can look up.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-we-are-doing&quot;&gt;What We Are Doing&lt;/h2&gt;
+&lt;p&gt;We will be updating how we deploy installers.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;You will be able to verify downloaded installers using SHA-256 checksums&lt;/li&gt;
+  &lt;li&gt;We will never release anything aside from installers. That is, the installer will have the filetype needed for your operating system. There will be no .rar or .zip file installers. If you see such an installer, delete it and report it immediately.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;It will take some time to implement all our suggestions, but trust us, it’s worth it. Take the time and be more secure. Stay vigilant out there!&lt;/p&gt;
+</description>
+        <pubDate>Fri, 28 May 2021 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/05/28/securing-your-chia-how-to-be-a-hard-target.en.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Aggregated signatures, Taproot, Graftroot, and standard transactions</title>
+        <description>&lt;p&gt;In Chia we’re using BLS signatures which enable noninteractive signature aggregation. In this post I’ll explain how that fits into the system as a whole, what practical benefits it provides, and how our ‘standard’ transaction format works, and what taproot and graftroot really are.&lt;/p&gt;
+
+&lt;p&gt;Explaining the motivation and background on taproot and graftroot is outside the scope of this post, so if you don’t already know how taproot and graftroot work in Bitcoin, you can read this &lt;a href=&quot;https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2018-January/015614.html&quot;&gt;explanation for motivation and background on taproot&lt;/a&gt;, this one for &lt;a href=&quot;https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki&quot;&gt;more technical details&lt;/a&gt;, and this &lt;a href=&quot;https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2018-February/015700.html&quot;&gt;explanation of graftroot&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Our ‘standard’ format transaction, which this post explains, is &lt;a href=&quot;https://github.com/Chia-Network/chia-blockchain/blob/main/chia/wallet/puzzles/p2_delegated_puzzle_or_hidden_puzzle.clvm&quot;&gt;implemented here&lt;/a&gt;. That code snippet is written in &lt;a href=&quot;https://chialisp.com&quot;&gt;chialisp&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;First a high level view of what’s going on (some background on &lt;a href=&quot;https://en.bitcoin.it/wiki/Transaction&quot;&gt;how transactions work in Bitcoin&lt;/a&gt;). In Bitcoin the persistent state is called the &lt;a href=&quot;https://river.com/learn/terms/u/unspent-transaction-output-utxo/&quot;&gt;UTXO&lt;/a&gt; set, which in Chia is called the coin set. Other naming conventions in Bitcoin are a bit esoteric, so in Chia we chose more descriptive names.  A Bitcoin “scriptpubkey” is called a “puzzle” in Chia.   A Bitcoin “scriptsig” is called a “solution” in Chia.  Both concepts are more powerful in Chia.  A puzzle must be passed a solution, and the puzzle then returns “conditions” which are the Chia equivalent of the information contained in a transaction, but they’re generated dynamically and aren’t hashed into the identities of future coins. Because of signature aggregation solutions somewhat counterintuitively don’t contain signatures. Typically a solution contains the list of conditions to be asserted, and the puzzle adds to that list an assertion of them being signed which must be included in the aggregate signature. Aggregate signatures are dangling pieces of information which are included with transactions passed in the mempool and transaction blocks. When a transaction block is created all the aggregate signatures of transactions within it are re-aggregated into a single aggregate signature thanks to the magic of BLS signatures being non-interactively aggregatable.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/blog/Bitcoin-with-segwit.png&quot; alt=&quot;Bitcoin with Segwit compared to Chia&quot; title=&quot;Bitcoin with Segwit compared to Chia&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;One of the big differences from Bitcoin is that each coin has its own separate solution, which raises the question of how several different spends and coin creations are forced to come as a bundle. The direct way is for them to declare that the other coins must be spent as part of their transactions in their conditions. A more elegant and basic trick is to only release the aggregate of all their signatures. BLS has the property that the signatures of any number of (key, value) pairs can be expressed as a single aggregated signature. It isn’t possible given the aggregated signature to pull out any of the individual signatures. It’s completely normal to make a transaction where one of the inputs, possibly even the smallest one, makes all the outputs and the others simply burn themselves doing nothing. As long as the sum of the sizes of the outputs is equal to the sum of the sizes of the inputs this works fine. As long as only the aggregate signature was published there’s no way for anyone else to pull off just the coin solutions which burn the large ones and pocket that money for themselves. If someone wants to safely spend a single input in a different way then any deviation from what they originally signed will provide safety. It’s also possible for coin spends to explicitly communicate with and depend on each other, but not required. With BLS it is possible to non interactively aggregate any number of aggregates, which is used to make every Chia transaction block contain exactly one aggregated signature, regardless of the number of transactions from the mempool which went into it.&lt;/p&gt;
+
+&lt;p&gt;While features like taproot and graftroot are in no way directly built into Chia, the necessary hooks to implement them are in there and we’re using a ‘standard’ transaction format which we recommend most vanilla transactions stick with. It turns out that much of the cryptographic magic in taproot and graftroot has to do with trying to compress them using what amounts to ad hoc signature aggregation. When aggregation is already built into the system, and always used, the underlying logic of these features becomes much more direct.&lt;/p&gt;
+
+&lt;p&gt;The simplest bit of smart functionality to describe is &lt;a href=&quot;https://bitcoinops.org/en/topics/mast/&quot;&gt;MAST&lt;/a&gt;. The underlying language of the chia on-chain programming environment is CLVM, (Chia Lisp Virtual Machine or more generically Common Language Virtual Machine), but here’s what MAST looks like paraphrased in more pythonic pseudocode:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;def my_mast_puzzle(solution):
+    metapuzzle, metasolution = solution
+    assert hash(metapuzzle) in [‘hashA’, ‘hashB’]
+    return metapuzzle(metasolution)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In addition to being very simple and clean, this recursive approach to merkleization has the privacy benefit of giving no hint as to the depth of the tree or what’s at the leaves along the way. You can make it deeper by using a similar program which taxes a metameta puzzle and a metametasolution, followed by a metametametapuzzle, etc.&lt;/p&gt;
+
+&lt;p&gt;You might notice the egregious use of eval of simply calling a piece of data passed in as code. In this particular case the hash was checked beforehand so it would be safe even in an unsafe language, but this sort of eval is common in clvm programs even for untrusted code and is allowed by the CLVM’s strict adherence to there being no side effects and no global data, resulting in every call being strictly sandboxed.&lt;/p&gt;
+
+&lt;p&gt;Both taproot and graftroot are motivated by the desire to short circuit the logic of a smart transaction. Most of the time everyone participating in a group transaction cooperates, or at least acknowledges that they’ll be forced to cooperate, so you can use an N-of-N key for the visible one on your coin and all N parties to your transaction sign off on it in the clean case, with a trapdoor for the unclean case.&lt;/p&gt;
+
+&lt;p&gt;Graftroot at its core is simple delegation. The simplest approach to signed transactions would be to treat the solution passed in as a list of conditions, prepend a requirement that that list must be signed by your key in the aggregated signature, and return that.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;def my_simple_puzzle(solution):
+    return [(‘aggregate signature’, ‘my_public_key’, hash(solution)] + solution
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Graftroot makes this just slightly more complicated by its solution containing two things, a metapuzzle and a metasolution. It calls the metapuzzle passing it the metasolution, getting a list of conditions in response. It then prepends an assertion that the metapuzzle signed by the coin’s key is in the aggregate, and returns that.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;def my_graftroot_puzzle(solution):
+    metapuzzle, metasolution = solution
+    Return [(‘aggregate signature’, ‘my_public_key’, hash(metapuzzle)] +
+              metapuzzle(metasolution)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If several participants want to participate in a smart transaction, they can all collectively sign the metapuzzles to be used in the unclean solutions, then go about their business and if everything is clean in the end sign a metapuzzle which just returns the conditions they all arrived at and ignores the metasolution.&lt;/p&gt;
+
+&lt;p&gt;Taproot is subtly different from graftroot. Its big advantage is that the trapdoor conditions can be committed to up front, without needing to coordinate with the other participants in a smart transaction to get their signatures in advance. It requires some extra hooks be built into the language to support it but we’ve added those and made support for taproot trapdoors part of our standard puzzle format.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/blog/Taproot-Pub-Key-Generation.png&quot; alt=&quot;Taproot Pubkey Generation&quot; title=&quot;Taproot Pubkey Generation&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/blog/Taproot-Clean-Path-Generation.png&quot; alt=&quot;Taproot Clean Path Generation&quot; title=&quot;Taproot Clean Path Generation&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In the normal path taproot appears to use a normal public key in the normal way. In the trapdoor case it reveals another puzzle which was hidden inside the public key, then provides a solution to that puzzle. The way a puzzle is hidden inside a public key is that an original public key is made from a private key which will never be revealed, then that public key and the puzzle are hashed together to generate a new private key. The corresponding public key to that private key is calculated and the aggregate of that with the original public key are what’s used for the puzzle’s open public key. In the normal case the signer (or signers) signs using the original key then aggregates that signature with one from the other derived key to make what looks like an ordinary signature. In the trap door case the signer reveals what their original public key and the trapdoor puzzle are and provides a solution to that puzzle. It wouldn’t be sufficient to have the public key be just derived from the trapdoor puzzle with no prior key because that wouldn’t allow the key to be an aggregate and if the trapdoor case was used that would allow someone else to front run the transaction using the revealed non-trapdoor private key.&lt;/p&gt;
+
+&lt;p&gt;It is of course possible to nest these: The hidden puzzles can also be standard format which then also support taproot and graftroot. A similar trick is useful for merkleizing whole sets of possible puzzles. The root puzzle states that it must be given a puzzle reveal whose hash is one of two values and a metasolution. It then verifies the hash of the puzzle reveal, passes it the metasolution, and returns that. These can be nested resulting in logarithmic depth to any number of possible alternative leaves with a minimum of information revealed when a coin is spent.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 27 May 2021 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/05/27/Agrgregated-Sigs-Taproot-Graftroot.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/05/27/Agrgregated-Sigs-Taproot-Graftroot.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Chia and SSD Endurance</title>
+        <description>&lt;h2 id=&quot;overview-of-chia-plotting-and-farming&quot;&gt;Overview of Chia plotting and farming&lt;/h2&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://www.chia.net/&quot;&gt;Chia &lt;/a&gt;project is based on &lt;a href=&quot;https://www.chia.net/faq/&quot;&gt;proofs of space and time&lt;/a&gt;, a brand new Nakamoto consensus allowing for underutilized storage capacity to secure the blockchain. Proofs of space are stored in plot files, where a commonly used k=32 plot is 101.3GiB (108.8 GB, or Gigabytes). Generating plot files is a process called plotting, which requires temporary storage space, compute and memory to create, sort, and compress the data into the final file. This process takes an estimated 256.6GB of temporary space, very commonly stored on SSDs to speed up the process, and approximately 1.3TiB of writes during the creation. The community realized early on that guidance was needed for SSD endurance, and a &lt;a href=&quot;https://github.com/Chia-Network/chia-blockchain/wiki/SSD-Endurance&quot;&gt;wiki &lt;/a&gt;was created to help users select the proper SSD for plotting.&lt;/p&gt;
+
+&lt;h2 id=&quot;ssd-market-and-endurance&quot;&gt;SSD Market and Endurance&lt;/h2&gt;
+
+&lt;p&gt;The new Chia cryptocurrency has received some inquiries regarding accelerated wear-out on SSDs. Solid-state drives are the standard for storing user data in current laptops and desktops, overtaking HDDs due to lower latency, lower power, improved battery life, smaller form factors, and better reliability than hard disk drives. The worldwide SSD market reached $33.2B [1], with consumer SSDs reaching 338M units and $17.6B [2] in 2020 alone. SSDs come in a large variety. SSDs segmentation occurs with different segments (consumer, datacenter, enterprise), interfaces (PCIe/NVMe, SATA, SAS), performance, endurance, and media type (MLC, TLC, QLC) for the 3D NAND technologies. Mainstream SSDs use 3D NAND flash non-volatile memory in the floating gate and charge-trap / replacement gate technology (major NAND vendors include Micron, Intel, Samsung V-NAND, Kioxia &amp;amp; WD BiCS). 3D NAND has a limited amount of write endurance or the amount of data written to a drive before wearing out (device failure or inability to read or write additional user data). SSDs are rated in TBW (terabytes written) or DWPD (drive writes per day) to show how much data can be written before wearing out. [&lt;a href=&quot;https://www.snia.org/forums/cmsi/ssd-endurance&quot;&gt;3&lt;/a&gt;] SSD vendors use the JESD219 spec from the JEDEC organization [&lt;a href=&quot;https://www.jedec.org/&quot;&gt;5&lt;/a&gt;] for this rating with standardized tests and reporting. Endurance is very well understood and can be accurately modeled and predicted. [&lt;a href=&quot;http://intel.com/endurance&quot;&gt;7&lt;/a&gt;]&lt;/p&gt;
+
+&lt;h2 id=&quot;chia-plotting-process-and-ssd-selection&quot;&gt;Chia plotting process and SSD selection&lt;/h2&gt;
+
+&lt;p&gt;Chia plotting creates the cryptographic data stored later for the proofs of space (retrieved later to validate the network in a process called farming). Plotting is only required once upon creating the data and requires compute, memory, and ephemeral storage. Plotting is a write-intensive process due to creating random data, sorting, and compression. The Chia team and community advocate using data center class SSDs or consumer drives meant for high-end desktops and workstations with a high TBW endurance rating for the plotting process. If a user selects a high-endurance data center SSD, they can plot for up to 10 years [&lt;a href=&quot;https://github.com/Chia-Network/chia-blockchain/wiki/SSD-Endurance&quot;&gt;4&lt;/a&gt;] before wearing out the device during the plotting process. Consumer SSDs have been optimized for light client workloads (web browsing, office work, gaming) and are not suitable for Chia plotting. With the endurance requirements being more significant than average consumer SSDs, the consensus in the community is to avoid using these if possible for Chia plotting. The Chia team realizes that consumer SSDs are the ones that are generally available, and there are some models that have enough endurance where users can plot all the farming capacity they have and still have a surplus of endurance. A comparison using a device not designed for such a workload would not be an accurate representation of what is being used to plot in Chia.&lt;/p&gt;
+
+&lt;center&gt;&lt;blockquote class=&quot;twitter-tweet&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Also don&amp;#39;t clean nonstick pans with steel wool, don&amp;#39;t clean vegetables with soap, and don&amp;#39;t use your phone as a doorstop. These aren&amp;#39;t arguments against steel wool, soap, or phones, they&amp;#39;re basic guidelines about using your tools properly.&lt;/p&gt;&amp;mdash; Bram Cohen (@bramcohen) &lt;a href=&quot;https://twitter.com/bramcohen/status/1393991791590838277?ref_src=twsrc%5Etfw&quot;&gt;May 16, 2021&lt;/a&gt;&lt;/blockquote&gt; &lt;script async=&quot;&quot; src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;hdd-plotting&quot;&gt;HDD Plotting&lt;/h2&gt;
+
+&lt;p&gt;While most users are selecting SSDs [&lt;a href=&quot;https://github.com/Chia-Network/chia-blockchain/wiki/Reference-Plotting-Hardware&quot;&gt;8&lt;/a&gt;] for Chia plotting to create the data faster and gain a competitive advantage, the software itself does run fine plotting directly to HDD, albeit slower. Mainstream HDDs are rated at 200-550TB/year workload to meet the reliability metrics on the specification sheet. A new hard drive being plotted directly to will likely be right up against this limit in the first year, but Chia farming is a write-once / read-many workload where writing additional data overtime is unnecessary. The farming process is lightweight and slight wear and tear on the drive once the drive is full of the plots needed to participate in the network.&lt;/p&gt;
+
+&lt;h2 id=&quot;other-case-studies-for-selecting-the-wrong-flash-device-based-on-endurance-requirements&quot;&gt;Other case studies for selecting the wrong flash device based on endurance requirements.&lt;/h2&gt;
+
+&lt;p&gt;Tesla performed a voluntary recall [&lt;a href=&quot;https://www.tesla.com/support/8gb-emmc-recall-frequently-asked-questions&quot;&gt;6&lt;/a&gt;] after users reported MCU (Media Control Unit) failures. The root cause was the eMMC flash storage onboard not having enough write endurance to handle the logging that was being performed on the device. Calculating endurance is a very common prerequisite for determining the right fit for SSDs in any application. Thus, this was a good case study on the negative outcome of not understanding NAND flash’s endurance requirements.&lt;/p&gt;
+
+&lt;p&gt;Macbooks that use the new Apple M1 chip saw users reporting accelerated SSD wear out, [9] possibly due to the increased use of swapping in MacOS and Rosetta 2.&lt;/p&gt;
+
+&lt;h2 id=&quot;questions-or-concerns-and-note-for-ssd-vendors&quot;&gt;Questions or concerns, and note for SSD vendors&lt;/h2&gt;
+
+&lt;p&gt;Please reach out to Jonmichael Hands, VP of Storage Business Development, if you are an SSD vendor, partner, cloud provider, or have any Chia and storage use questions. Send and email to hello@chia.net to get connected.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[1] Worldwide Solid State Drive Market Shares, 2020: Pandemic Drives Strong Growth for Enterprise and Client SSDs
+[2] Forward Insights, Q1'21
+[3] https://www.snia.org/forums/cmsi/ssd-endurance
+[4] https://github.com/Chia-Network/chia-blockchain/wiki/SSD-Endurance
+[5] https://www.jedec.org/
+[6] https://www.tesla.com/support/8gb-emmc-recall-frequently-asked-questions
+[7] http://intel.com/endurance
+[8] https://github.com/Chia-Network/chia-blockchain/wiki/Reference-Plotting-Hardware
+[9] https://www.macworld.com/article/338844/how-worried-should-you-be-about-your-m1-macs-ssd-lifespan.html
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Mon, 24 May 2021 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/05/24/SSD-endurance.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/05/24/SSD-endurance.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Chia 1.0 Mainnet</title>
+        <description>&lt;h2 id=&quot;today-we-release-version-10-of-the-chia-blockchain&quot;&gt;Today we release version 1.0 of the Chia Blockchain.&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;You can go ahead and install it for &lt;a href=&quot;https://download.chia.net/latest/Setup-Win64.exe&quot;&gt;Windows&lt;/a&gt; and &lt;a href=&quot;https://download.chia.net/latest/Setup-MacOS.dmg&quot;&gt;MacOS&lt;/a&gt; with lots of &lt;a href=&quot;https://github.com/Chia-Network/chia-blockchain/wiki/INSTALL&quot;&gt;other platforms&lt;/a&gt; supported too. You can continue plotting in 1.0 and otherwise prepare your farm while we wait for mainnet to start.&lt;/p&gt;
+
+&lt;p&gt;The genesis challenge will be distributed using our green flag process at &lt;strong&gt;7AM PDT (14:00 UTC) on Friday March 19, 2021&lt;/strong&gt; and that will officially start mainnet! We attempted to chose a time that had the most waking hours around the globe. Apologies to Hawaii, the South Pacific, and eastern Australia etc.&lt;/p&gt;
+
+&lt;p&gt;We will have a Zoom and YouTube live available starting at 6:30AM PDT (13:30 UTC) on Friday March 19, 2021. During the RC9 green flag test on Tuesday, we caused Keybase to stutter but we will have room for 500 on Zoom and intend to post a direct YouTube live link. We will record, but may or may not post, the replay. Watching Devops press buttons may not be the high drama our &lt;a href=&quot;https://www.youtube.com/channel/UChFkJ3OAUvnHZdiQISWdWPA&quot;&gt;Channel&lt;/a&gt; deserves. Comment, like, and subscribe and all that. We will be drinking coffee… ☕️&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Zoom link - &lt;a href=&quot;https://us02web.zoom.us/j/85969999199&quot;&gt;https://us02web.zoom.us/j/85969999199&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;There is an initial six week period where transactions will be frozen and farmers will only be receiving farming rewards. We will soft fork in final transaction capabilities during this period in a 1.1 release. That will be a required upgrade before the six week period ends. Read all about it in the &lt;a href=&quot;https://github.com/Chia-Network/chia-blockchain/blob/main/CHANGELOG.md&quot;&gt;release notes&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;Happy Farming!&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;🚜 👩‍🌾 🌱&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+  &lt;img src=&quot;/assets/benjamin-davies-Zm2n2O7Fph4-unsplash.jpg&quot; alt=&quot;Green Field&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;Photo by &lt;a href=&quot;https://unsplash.com/@bendavisual?utm_source=unsplash&amp;amp;utm_medium=referral&amp;amp;utm_content=creditCopyText&quot;&gt;Benjamin Davies&lt;/a&gt; on &lt;a href=&quot;/?utm_source=unsplash&amp;amp;utm_medium=referral&amp;amp;utm_content=creditCopyText&quot;&gt;Unsplash&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 17 Mar 2021 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/03/17/Chia-1.0.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/03/17/Chia-1.0.html</guid>
+        
+        
+      </item>
+    
+  </channel>
+</rss>

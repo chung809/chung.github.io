@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Common Misconceptions, Vol. 1</title>
+  <meta name="description"
+    content="Chia is a complex system. There is a lot of nuance and technicalities involved in understanding how all the components of Chia work together. Over the last s...">
+
+  <!-- jQuery and Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/main.css?version=1">
+  <link rel="canonical" href="http://localhost:4000/2021/06/15/common-misconceptions-vol-1.html">
+  <link rel="alternate" type="application/rss+xml" title="Chia Network"
+    href="http://localhost:4000/feed.xml">
+
+  
+  <meta name="twitter:image" content="https://chia.net/android-chrome-384x384.png" />
+  
+  <meta name="twitter:title" content="Common Misconceptions, Vol. 1">
+  
+  <meta name="twitter:description" content="Chia is a complex system. There is a lot of nuance and technicalities involved in understanding how all the components of Chia work together. Over the last several weeks we’ve seen several misconceptions floating around on social media and Keybase regarding how Chia works.">
+  <!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Common Misconceptions, Vol. 1 | Chia Network</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Common Misconceptions, Vol. 1" />
+<meta name="author" content="[J. Eckert](https://twitter.com/sargonas) and [Roy Natian](https://www.linkedin.com/in/roynatian)" />
+<meta property="og:locale" content="en" />
+<meta name="description" content="Chia is a complex system. There is a lot of nuance and technicalities involved in understanding how all the components of Chia work together. Over the last several weeks we’ve seen several misconceptions floating around on social media and Keybase regarding how Chia works." />
+<meta property="og:description" content="Chia is a complex system. There is a lot of nuance and technicalities involved in understanding how all the components of Chia work together. Over the last several weeks we’ve seen several misconceptions floating around on social media and Keybase regarding how Chia works." />
+<link rel="canonical" href="http://localhost:4000/2021/06/15/common-misconceptions-vol-1.html" />
+<meta property="og:url" content="http://localhost:4000/2021/06/15/common-misconceptions-vol-1.html" />
+<meta property="og:site_name" content="Chia Network" />
+<meta property="og:image" content="https://chia.net/android-chrome-384x384.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-06-15T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:image" content="https://chia.net/android-chrome-384x384.png" />
+<meta property="twitter:title" content="Common Misconceptions, Vol. 1" />
+<meta name="twitter:site" content="@chia_project" />
+<meta name="twitter:creator" content="@[J. Eckert](https://twitter.com/sargonas) and [Roy Natian](https://www.linkedin.com/in/roynatian)" />
+<meta property="article:publisher" content="https://www.facebook.com/ChiaProject" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","dateModified":"2021-06-15T00:00:00+08:00","datePublished":"2021-06-15T00:00:00+08:00","image":"https://chia.net/android-chrome-384x384.png","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2021/06/15/common-misconceptions-vol-1.html"},"url":"http://localhost:4000/2021/06/15/common-misconceptions-vol-1.html","author":{"@type":"Person","name":"[J. Eckert](https://twitter.com/sargonas) and [Roy Natian](https://www.linkedin.com/in/roynatian)"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/img/chia_logo.svg"},"name":"[J. Eckert](https://twitter.com/sargonas) and [Roy Natian](https://www.linkedin.com/in/roynatian)"},"headline":"Common Misconceptions, Vol. 1","description":"Chia is a complex system. There is a lot of nuance and technicalities involved in understanding how all the components of Chia work together. Over the last several weeks we’ve seen several misconceptions floating around on social media and Keybase regarding how Chia works.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-157739092-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-157739092-1');
+</script>
+  
+</head>
+
+  <body>
+    
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand ml-xl-5 p-2" href="/"><img src="/img/chia_logo.svg" alt="Chia Logo"></a>
+    <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/download">Download</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/blog">Blog</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/news">News</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/faq">FAQ</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/greenpaper">Green Paper</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/about">About</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/careers">Careers</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-2 py-lg-4 px-2 px-xl-3" href="/contact">Contact</a>
+                <div class="highlight d-none d-lg-inline-block"></div>
+            </li>
+        </ul>
+
+        <div class="nav-divider px-2 px-xl-5"><div></div></div>
+
+        
+        
+        <div class="dropdown d-none d-lg-block pr-xl-3">
+            
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="languageMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">English</a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="languageMenuLink">
+                <a class="dropdown-item" href="/2021/06/15/common-misconceptions-vol-1.html">English</a><a class="dropdown-item" href="/fr/2021/06/15/common-misconceptions-vol-1.html">Français</a><a class="dropdown-item" href="/jp/2021/06/15/common-misconceptions-vol-1.html">日本語</a><a class="dropdown-item" href="/cn/2021/06/15/common-misconceptions-vol-1.html">中文</a><a class="dropdown-item" href="/nl/2021/06/15/common-misconceptions-vol-1.html">Nederlands</a><a class="dropdown-item" href="/de/2021/06/15/common-misconceptions-vol-1.html">Deutsch</a><a class="dropdown-item" href="/es/2021/06/15/common-misconceptions-vol-1.html">Español</a><a class="dropdown-item" href="/sr/2021/06/15/common-misconceptions-vol-1.html">Srpski</a><a class="dropdown-item" href="/pt/2021/06/15/common-misconceptions-vol-1.html">Português</a><a class="dropdown-item" href="/tr/2021/06/15/common-misconceptions-vol-1.html">Türk</a><a class="dropdown-item" href="/ru/2021/06/15/common-misconceptions-vol-1.html">Русский</a>
+            </div>
+        </div>
+        <div class="dropup d-lg-none py-3">
+            
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="languageMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">English</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="languageMenuLink">
+                <a class="dropdown-item" href="/2021/06/15/common-misconceptions-vol-1.html">English</a><a class="dropdown-item" href="/fr/2021/06/15/common-misconceptions-vol-1.html">Français</a><a class="dropdown-item" href="/jp/2021/06/15/common-misconceptions-vol-1.html">日本語</a><a class="dropdown-item" href="/cn/2021/06/15/common-misconceptions-vol-1.html">中文</a><a class="dropdown-item" href="/nl/2021/06/15/common-misconceptions-vol-1.html">Nederlands</a><a class="dropdown-item" href="/de/2021/06/15/common-misconceptions-vol-1.html">Deutsch</a><a class="dropdown-item" href="/es/2021/06/15/common-misconceptions-vol-1.html">Español</a><a class="dropdown-item" href="/sr/2021/06/15/common-misconceptions-vol-1.html">Srpski</a><a class="dropdown-item" href="/pt/2021/06/15/common-misconceptions-vol-1.html">Português</a><a class="dropdown-item" href="/tr/2021/06/15/common-misconceptions-vol-1.html">Türk</a><a class="dropdown-item" href="/ru/2021/06/15/common-misconceptions-vol-1.html">Русский</a>
+            </div>
+        </div>
+    </div>   
+</nav>
+
+
+
+<div class="blog-post">
+  <article class="container" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="row">
+      <div class="col-md-10 mx-auto">
+        <div class="title">
+          <h1>Common Misconceptions, Vol. 1</h1>
+          <span class="author"><p><a href="https://twitter.com/sargonas">J. Eckert</a> and <a href="https://www.linkedin.com/in/roynatian">Roy Natian</a></p>
+</span> &mdash; <span class="date">June 15, 2021</span>
+        </div>
+
+        <div class="content">
+          <p>Chia is a complex system. There is a lot of nuance and technicalities involved in understanding how all the components of Chia work together. Over the last several weeks we’ve seen several misconceptions floating around on social media and <a href="https://keybase.io/team/chia_network.public">Keybase</a> regarding how Chia works.</p>
+
+<p>We have compiled the most common misconceptions and questions with responses below.</p>
+
+<p>Also, don’t forget to join us <strong>today</strong>, Tuesday, June 15 for an AMA on plotting speed and security with Bram, Gene, and the team.</p>
+
+<p><strong>Chia Livestream: Plotting speed and security in Chia</strong>
+When: Jun 15, 2021 05:00 PM Pacific Time (12:00am UTC)
+Where: <a href="https://chia-net.zoom.us/j/89843076167">Zoom</a> or <a href="https://www.youtube.com/channel/UChFkJ3OAUvnHZdiQISWdWPA">Youtube</a></p>
+
+<h2 id="common-misconceptions-and-questions">Common Misconceptions and Questions</h2>
+
+<p><strong>hpool can conduct a 51% attack</strong></p>
+
+<p>No, they’re too small for that. At the time of writing, <a href="https://www.chiaexplorer.com/charts/topFarmers">going by blocks won</a>, they’re currently hovering at around 33% of netspace. The numbers on their website disagree, but those likely include netspace reported by dishonest farmers—a problem that is specific to hpool and their custom pool protocol. Double-farmed net space does not win blocks, and in fact, does not even enter the Chia netspace calculation.</p>
+
+<hr />
+
+<p><strong>A sufficiently large pool can conduct a 51% attack</strong></p>
+
+<p>Not really, unless they manage to convince 51% of netspace to use a custom client that they can remote-control.</p>
+
+<p>Traditionally in crypto there have been “hash pools” where miners receive work to process and submit results so the pool can create a winning block by combining all the miner’s efforts. A network using pooling like this is highly susceptible to 51% attacks when a pool has 51% of the network (or coordinates with other hash pools) because the pool is the single source of data flowing into the blockchain. Chia changes this system by having individual farmers create the winning blocks alone, and uses “reward pools” to share coins among fellow participants of it, reducing the risk dramatically as a pool will have to coordinate (as in seize direct control) of hundreds of thousands of individual farmers within the pool, rather than just modify the output of the pool itself.</p>
+
+<p>Long story short: Chia is different, and pools can’t do a classic 51% attack. Traditional crypto pools control the entire pool’s block response (and can modify it for personal gain if it has 51%). In a Chia pool, the individual farmers contribute the block themselves without interference from the pool, and every farmer in the pool would need to agree with the pool’s rogue actions if it had 51%.</p>
+
+<hr />
+
+<p><strong>The prefarm means Chia plans to rugpull at some point</strong></p>
+
+<p>If Bram Cohen had wanted to do a rug pull, he would have led with an (illegal) ICO and walked away years ago with millions or even billions without the hard work of the last three years. Instead, he invented &amp; co-invented several new types of math, <a href="https://link.springer.com/chapter/10.1007/978-3-319-70697-9_13">co-authored a paper in a peer-reviewed journal</a>, brought together a diverse team, and gained the confidence of globally respected investment firms. He is now just a minority owner of Chia Network, having given up 70% of that potential ICO profit to instead focus on the opportunity to change the world as part of something larger than himself.</p>
+
+<hr />
+
+<p><strong>Chia is designed to kill NVMe drives</strong></p>
+
+<p><a href="https://twitter.com/bramcohen/status/1393991791590838277">No</a>. If you use the wrong tool for the job, the job may destroy that tool. This is to say, using some types of consumer NVMe SSD may result in those devices failing because of the high number of writes involved in the Chia plotting process. There will be some TBW wear on any NVMe drive used for Chia plotting, this does not mean all drives used for Chia plotting will fail. It is not recommended users purchase consumer NVMe drives for the purpose of Chia plotting. It is certainly not an intentional Chia feature that some consumer NVMe drives fail from Chia plotting. We do hope that farmers are using second-hand or already owned hardware whenever possible to make their Chia farm as green as possible.</p>
+
+<p>Also, plotting on HDDs is slower but possible (and a lot of work went into ensuring that the stock plotter supports this). Alternative plotters again may be much lighter on writes, at the cost of higher RAM usage.</p>
+
+<p>You can learn more here: <a href="https://www.chia.net/2021/05/24/SSD-endurance.html">Chia and SSD Endurance</a></p>
+
+<hr />
+
+<p><strong>Is Chia really Green? You still use energy – and what about the e-waste?</strong></p>
+
+<p>Chia is committed to being a truly sustainable digital currency. Not just less bad. Proof-of-Work was an amazing innovation but unforeseen challenges led to extremely high energy wastefulness and diminished decentralization. Bram recognized a need to conceive an evolved Nakamoto Consensus that is truly decentralized and not inherently wasteful and energy inefficient while retaining the network security of Proof-of-Work and improving on the programmability of Ethereum. Chia’s energy use is approximately 0.1% - 0.3% that of cryptocurrencies that rely on Proof of Work.  While other cryptocurrencies may deploy Proof of Stake to reduce energy consumption, those systems will not be able to assure the same network security or deliver on decentralization.</p>
+
+<p>We take our responsibility to the planet and society very seriously, and when Chia identified the risk of additional e-waste, we took immediate action.  Although spent NVMes is not an issue (see above), Chia will soon announce a partnership with top industry data center and storage companies to stop the current practice of shredding hard drives so they can be refurbished and have a second life once they are no longer dependable to store data.  We are confident this will reduce global e-waste dramatically and hope to make further announcements in the coming weeks.</p>
+
+<hr />
+
+<p><strong>k33 plots are better than k32 plots</strong></p>
+
+<p>There truly is no difference between k32, k33, and kXX plots aside from the fact that the larger numbered plots are, indeed, larger in size, and take orders of magnitude longer to make. Beyond that, you are not improving your chances in ANY way by plotting larger files than k32. We promise. (The only reason to look at larger plots at this time is a strategic use of them allows you to min-max drive usage and not leave &lt;101GB unused per drive if you Tetris things right.)</p>
+
+<p>Another way to think about it: a single k33 takes up twice the space of a single k32, but k33’s are not denser in any way.</p>
+
+<hr />
+
+<p><strong><code class="language-plaintext highlighter-rouge">chia plots check</code> decides your plotfile qualities (sometimes called unlucky plots)</strong></p>
+
+<p>The <code class="language-plaintext highlighter-rouge">chia plots check</code> CLI utility is a tool for detecting plot files containing bad data that will fail to farm. It is sending out a static challenge, with a diff fitting the kXX size of the plotfile, so that it, on average, should return <code class="language-plaintext highlighter-rouge">-n</code> proofs. It does not, in any way, indicate if a plot is more likely to win against the random challenges created on the network during normal operations. This check does not mean that they are then worse or better against other, real-world challenges. It is merely a tool to detect plots that are either unable to be harvested at all, or are returning proofs far outside the expected norm due to an error in generation.</p>
+
+<hr />
+
+<p><strong>My node is synced, but my wallet is showing 0</strong></p>
+
+<p>The wallet and the full node each have their own sqlite database file.  The full node contains the blockchain itself, and the wallet contains transactions important to your receive addresses. You have to have both the Full Node in sync, as well as the Wallet in sync, to see the current balance of your wallet.</p>
+
+<hr />
+
+<p><strong>“Reported” netspace by Chia can’t be trusted</strong></p>
+
+<p>It’s commonly argued that “Chia Network ‘claims’ the netspace is size X” or that the netspace is somehow a fabrication of marketing hype on Chia Network’s part. It’s important to note that the reported estimated size of the netspace is calculated by the software itself, using formulas and metrics that are openly documented in the open-source project in GitHub. No one person or entity is responsible for “claiming” the netspace size is X, it’s simply math that is based on the current blockchain state, using algorithms that make estimates based on activity. Yes, it can be off by a percentage depending on the current network state, but never by a material amount, and it self-corrects regularly.</p>
+
+<p>It’s also important to note that blockchain explorers often use a different formula than the one in the Chia GUI to calculate netspace.</p>
+
+<hr />
+
+<p><strong>Chia farming and holdings are dominated by one country</strong></p>
+
+<p>60% of the world’s population is in Asia, 10% of the population is in Europe, and 5% is in North America. It’s simply a normal thing that the dispersion of any Blockchain network that exceeds critical mass is going to be a microcosm of normal world population expectations. The breakdown with any one region or country that has a disproportionate size of population is always going to be mirrored in a network of this size. To expect otherwise is simply unreasonable, because at the end of the day the global population is not remotely evenly distributed.</p>
+
+<p>That said, based on traffic data, Chia is bigger in the US and Russia than in China.</p>
+
+<hr />
+
+<p><strong>Lambo when?</strong></p>
+
+<p>There is no “Lambo when?”, it’s “Tesla Roadster when?”… this is why you are disappointed, you’re expecting the wrong car! 😉</p>
+
+<hr />
+
+<p><strong>Is Bram okay?</strong></p>
+
+<p>Bram is very open about his neurodivergence and being “on the spectrum”, and aspects of that will result in behavioral tics that otherwise might seem out of place to a neurotypical person. Fact of the matter is, people like Bram simply communicate and interact with others a bit differently from you or I… so please stop accusing him of being on drugs just because he blinks more than you do, or stares off into space while formulating an answer.</p>
+
+<p>There are far more people out there who are much more self-conscious about being on the spectrum than Bram is. When they see people react like this to his mannerisms, it undoes the work people like him do who openly embrace it, and can make those people feel insecure and self-conscious about themselves and their ability to “fit in” to the incorrect expectations these kinds of comments set.</p>
+
+<hr />
+
+<p><strong>Chia is a bad clone of burst</strong></p>
+
+<p>This is just a dismissive comment anyone can do for low effort. If you have read far enough along to get to THIS particular FAQ, you know enough to understand Chia and Burst have nothing in common beyond the fact they both use Storage and not PoW. One of the key differences is that Burst is not safe from Hellman Time-Space tradeoffs, and the optimal way to mine Burst is to add GPU Proof of Work to one’s Burst storage.</p>
+
+<hr />
+
+<p><strong>Chia is all whales, and only profitable for whales. Whales are going to take all the rewards</strong></p>
+
+<p>Chia is designed around making spare space farming possible and profitable - as long as that is the case, whales are competing against farmers who have next to zero cost, and the whales’ benefits to scale won’t be enough to overcome that. So in the long run, the whales lose.</p>
+
+<p>Also, even now there has never been a cryptocurrency with as many active nodes as Chia. As we approach 1,000,000 nodes, it is vital to keep in mind that 100,000 new users each adding only 50 TB each to netspace is 5 EB of new space added to the network.</p>
+
+<hr />
+
+<h3 id="acknowledgments">Acknowledgments</h3>
+<p>A big thank you to Justin England, Gene Hoffman, JM Hands, Shane Larsen, Chris Marslender, and @beechord, @efishcent, @pyl, @morebytes, @psydafke on Keybase for their contributions.</p>
+
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+    
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between py-5">
+                    <div class="contact-details">
+                        <a href="https://github.com/Chia-Network" target="_blank" rel="noreferrer noopener"><img class="m-2" src="/img/social/github_light.svg" alt="GitHub Logo"></a>
+                        <a href="https://twitter.com/chia_project" target="_blank" rel="noreferrer noopener"><img class="m-2" src="/img/social/twitter_light.svg" alt="Twitter Logo"></a>
+                        <a href="https://www.facebook.com/ChiaProject" target="_blank" rel="noreferrer noopener"><img class="m-2" src="/img/social/facebook_light.svg" alt="Facebook Logo"></a>
+                        <a href="https://instagram.com/chia_project" target="_blank" rel="noreferrer noopener"><img class="m-2" src="/img/social/instagram_light.svg" alt="Instagram Logo"></a>
+                        <a href="https://medium.com/@chia.net" target="_blank" rel="noreferrer noopener"><img class="m-2" src="/img/social/medium_light.svg" alt="Medium Logo"></a>
+                    </div>
+                    <div style="text-align: right">
+                        <img class="logo" src="/img/chia_logo.svg" alt="chia_logo">
+                        <div class="copyright">© Chia Network 2021 | <a href="/terms">Terms</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+  </body>
+</html>
